@@ -71,15 +71,6 @@
         </div>
     </section>
 
-    <section class="newsletter-section">
-        <h2>Unisciti alla nostra Community di Artigianato</h2>
-        <p>Iscriviti alla newsletter: ricevi subito un **buono sconto del 10%** sul tuo primo ordine.</p>
-        <form class="newsletter-form">
-            <input type="email" placeholder="Inserisci la tua email migliore" required>
-            <button type="submit">Ricevi lo Sconto</button>
-        </form>
-    </section>
-
     <jsp:include page="footer.jsp" />
 
 </body>
