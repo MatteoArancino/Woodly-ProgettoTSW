@@ -1,3 +1,10 @@
+/* Reset margini generali per evitare spazi bianchi brutti */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body { 
     font-family: 'Segoe UI', Arial, sans-serif; 
     background-color: #fcf9f5; 
@@ -67,4 +74,137 @@ h1 {
 
 .btn-carrello:hover { 
     background-color: #6d4a2a; 
+}
+
+/* --- AGGIUNTE PER NAVBAR, VETRINA E HOME PAGE --- */
+
+/* Barra di navigazione */
+.navbar {
+    background-color: #2e1f15;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+}
+
+.nav-logo {
+    font-size: 1.6em;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #fcf9f5;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: #e6dec9;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: #b87333; /* Colore rame/legno vivo */
+}
+
+/* Vetrina Principale */
+.hero {
+    background-color: #6d4a2a;
+    /* Puoi aggiungere uno sfondo sfumato elegante */
+    background: linear-gradient(rgba(46, 31, 21, 0.7), rgba(46, 31, 21, 0.7)), url('../images/hero_bg.jpg') center/cover no-repeat;
+    color: white;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.hero h1 {
+    color: #fcf9f5;
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 1.2em;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+    color: #e6dec9;
+}
+
+.btn-hero {
+    display: inline-block;
+    background-color: #b87333;
+    color: white;
+    text-decoration: none;
+    padding: 12px 30px;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.btn-hero:hover {
+    background-color: #8c6239;
+}
+
+/* Sezione Servizi */
+.home-services {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.home-services h2 {
+    color: #2e1f15;
+    margin-bottom: 40px;
+}
+
+.services-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.service-card {
+    background: white;
+    border: 1px solid #e6dec9;
+    border-radius: 8px;
+    padding: 30px;
+    width: 350px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+}
+
+.service-card h3 {
+    color: #2e1f15;
+    margin-bottom: 15px;
+}
+
+.service-card p {
+    color: #6d4a2a;
+    font-size: 0.95em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.btn-link {
+    color: #b87333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-link:hover {
+    text-decoration: underline;
+}
+
+/* Footer fisso in fondo */
+footer {
+    background-color: #2e1f15;
+    color: #8c7a6b;
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9em;
+    margin-top: 60px;
 }
