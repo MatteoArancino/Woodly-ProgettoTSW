@@ -50,7 +50,7 @@
         </form>
         
         <p style="text-align: center; margin-top: 20px;">
-            Hai già un account? <a href="#" class="btn-link">Accedi qui</a>
+            Hai già un account? <a href="login.jsp" class="btn-link">Accedi qui</a>
         </p>
     </div>
 
