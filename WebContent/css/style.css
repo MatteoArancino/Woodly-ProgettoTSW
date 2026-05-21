@@ -208,3 +208,45 @@ footer {
     font-size: 0.9em;
     margin-top: 60px;
 }
+
+/* --- STILE PER I FORM (Registrazione) --- */
+.form-container {
+    max-width: 450px;
+    margin: 60px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid #e6dec9;
+}
+
+.form-container h2 {
+    text-align: center;
+    color: #2e1f15;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #4a3b32;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #b87333;
+    box-shadow: 0 0 5px rgba(184, 115, 51, 0.3);
+}
