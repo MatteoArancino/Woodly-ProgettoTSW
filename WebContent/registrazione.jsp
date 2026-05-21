@@ -7,17 +7,8 @@
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-
-    <nav class="navbar">
-        <div class="nav-logo">Woodly</div>
-        <ul class="nav-links">
-            <li><a href="index.jsp">Home</a></li>
-            <li><a href="catalogo">Catalogo Mobili</a></li>
-            <li><a href="#">Preventivo su Misura</a></li>
-            <li><a href="registrazione.jsp" class="active">Accedi / Registrati</a></li>
-        </ul>
-    </nav>
-
+	<jsp:include page="footer.jsp" />
+    
     <div class="form-container">
         <h2>Crea il tuo Account Woodly</h2>
         
@@ -54,5 +45,6 @@
         </p>
     </div>
 
+	<jsp:include page="footer.jsp" />
 </body>
 </html>
