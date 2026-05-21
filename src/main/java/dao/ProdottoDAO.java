@@ -81,4 +81,38 @@ public class ProdottoDAO {
 
         return prodotto;
     }
+    
+    public List<Prodotto> cercaProdotti(String parolaChiave) {
+        List<Prodotto> listaRisultati = new ArrayList<>();
+        // Query con operatore LIKE per una ricerca flessibile
+        String query = "SELECT * FROM prodotti WHERE nome LIKE ? OR descrizione LIKE ? OR categoria LIKE ?";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            // Il simbolo % indica al DB di cercare la parola in qualsiasi posizione (inizio, centro, fine)
+            String parametroRicerca = "%" + parolaChiave + "%";
+            ps.setString(1, parametroRicerca);
+            ps.setString(2, parametroRicerca);
+            ps.setString(3, parametroRicerca);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Prodotto p = new Prodotto();
+                    p.setId(rs.getInt("id"));
+                    p.setNome(rs.getString("nome"));
+                    p.setDescrizione(rs.getString("descrizione"));
+                    p.setPrezzo(rs.getDouble("prezzo"));
+                    p.setCategoria(rs.getString("categoria"));
+                    // Se hai altri campi nel costruttore/proprietà del tuo modello inseriscili qui
+                    
+                    listaRisultati.add(p);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Errore in ProdottoDAO.cercaProdotti:");
+            e.printStackTrace();
+        }
+        return listaRisultati;
+    }
 }
