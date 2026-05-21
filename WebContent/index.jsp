@@ -14,7 +14,7 @@
             <li><a href="index.jsp" class="active">Home</a></li>
             <li><a href="catalogo">Catalogo Mobili</a></li>
             <li><a href="#">Preventivo su Misura</a></li>
-            <li><a href="#">Accedi / Registrati</a></li>
+            <li><a href="registrazione.jsp">Accedi / Registrati</a></li>
         </ul>
     </nav>
 
