@@ -3,48 +3,84 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Woodly - Falegnameria Artigianale</title>
+    <title>Woodly - Arredamento Artigianale in Vero Legno</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="nav-logo">Woodly</div>
-        <ul class="nav-links">
-            <li><a href="index.jsp" class="active">Home</a></li>
-            <li><a href="catalogo">Catalogo Mobili</a></li>
-            <li><a href="#">Preventivo su Misura</a></li>
-            <li><a href="registrazione.jsp">Accedi / Registrati</a></li>
-        </ul>
-    </nav>
+    <jsp:include page="header.jsp" />
 
     <header class="hero">
         <div class="hero-content">
-            <h1>Arredamento Artigianale in Vero Legno</h1>
-            <p>Progettiamo e realizziamo mobili unici, pensati per durare nel tempo e valorizzare i tuoi spazi.</p>
-            <a href="catalogo" class="btn-hero">Esplora il Catalogo</a>
+            <h1>Arredamento in Vero Legno Massello</h1>
+            <p>Design senza tempo e sostenibilità. Creato artigianalmente in Italia per durare generazioni.</p>
+            <a href="catalogo" class="btn-hero">Scopri la Collezione</a>
         </div>
     </header>
 
-    <main class="home-services">
-        <h2>Perché scegliere la nostra falegnameria?</h2>
-        <div class="services-container">
-            <div class="service-card">
-                <h3>Mobili Pronti</h3>
-                <p>Una selezione di mobili di nostra produzione, rifiniti a mano e pronti per essere spediti a casa tua.</p>
-                <a href="catalogo" class="btn-link">Vedi mobili →</a>
-            </div>
-            <div class="service-card">
-                <h3>Su Misura</h3>
-                <p>Hai un'idea o una misura particolare? Parlane con i nostri artigiani per un preventivo personalizzato.</p>
-                <a href="#" class="btn-link">Richiedi preventivo →</a>
-            </div>
-        </div>
-    </main>
+    <section class="trust-bar">
+        <div class="trust-item"><span>📦</span> <p><strong>Spedizione Gratuita</strong> sopra i 150€</p></div>
+        <div class="trust-item"><span>🇮🇹</span> <p><strong>100% Made in Italy</strong> Legno certificato</p></div>
+        <div class="trust-item"><span>🔒</span> <p><strong>Pagamento Sicuro</strong> PayPal & Carte</p></div>
+        <div class="trust-item"><span>🛠️</span> <p><strong>Garanzia 5 Anni</strong> Qualità artigiana</p></div>
+    </section>
 
-    <footer>
-        <p>&copy; 2026 Woodly S.r.l. - Tutti i diritti riservati - Progetto d'Esame</p>
-    </footer>
+    <section class="promo-banner">
+        <div class="promo-content">
+            <h2>Rinnova la Zona Giorno: -20% sui Tavoli</h2>
+            <p>Solo per questa settimana. Lo sconto si applica direttamente al carrello.</p>
+            <a href="catalogo" class="btn-secondary">Approfitta Ora</a>
+        </div>
+    </section>
+
+    <section class="section-home">
+        <h2 class="section-title">Esplora per Categoria</h2>
+        <div class="categories-grid">
+            <a href="catalogo?categoria=tavoli" class="category-card">
+                <div class="category-info"><h3>Tavoli e Scrivanie</h3></div>
+            </a>
+            <a href="catalogo?categoria=sedie" class="category-card">
+                <div class="category-info"><h3>Sedie e Sgabelli</h3></div>
+            </a>
+            <a href="catalogo?categoria=librerie" class="category-card">
+                <div class="category-info"><h3>Librerie e Pareti</h3></div>
+            </a>
+        </div>
+    </section>
+
+    <section class="section-home background-soft">
+        <h2 class="section-title">I Nostri Pezzi Più Venduti</h2>
+        <div class="products-grid-home">
+            
+            <div class="product-card-home">
+                <div class="badge-promo">Bestseller</div>
+                <div class="prod-img-placeholder">🪵</div>
+                <h3>Tavolo Rovere Massello</h3>
+                <p class="price">850.00 €</p>
+                <a href="AggiungiAlCarrello?id=1" class="btn-add-cart">Aggiungi al carrello</a>
+            </div>
+            
+            <div class="product-card-home">
+                <div class="badge-promo">Novità</div>
+                <div class="prod-img-placeholder">🪵</div>
+                <h3>Libreria ad Albero</h3>
+                <p class="price">450.00 €</p>
+                <a href="AggiungiAlCarrello?id=3" class="btn-add-cart">Aggiungi al carrello</a>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="newsletter-section">
+        <h2>Unisciti alla nostra Community di Artigianato</h2>
+        <p>Iscriviti alla newsletter: ricevi subito un **buono sconto del 10%** sul tuo primo ordine.</p>
+        <form class="newsletter-form">
+            <input type="email" placeholder="Inserisci la tua email migliore" required>
+            <button type="submit">Ricevi lo Sconto</button>
+        </form>
+    </section>
+
+    <jsp:include page="footer.jsp" />
 
 </body>
 </html>
