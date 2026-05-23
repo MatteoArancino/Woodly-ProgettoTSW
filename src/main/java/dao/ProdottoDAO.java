@@ -115,4 +115,42 @@ public class ProdottoDAO {
         }
         return listaRisultati;
     }
+    
+    public List<Prodotto> getProdottiPerCategoria(String categoria) {
+        List<Prodotto> lista = new ArrayList<>();
+        String query;
+        
+        // Se la categoria è nulla, vuota o impostata su "tutti", prendiamo tutto il catalogo
+        boolean prendiTutto = (categoria == null || categoria.trim().isEmpty() || categoria.equalsIgnoreCase("tutti"));
+        
+        if (prendiTutto) {
+            query = "SELECT * FROM prodotti";
+        } else {
+            query = "SELECT * FROM prodotti WHERE categoria = ?";
+        }
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            
+            if (!prendiTutto) {
+                ps.setString(1, categoria.trim());
+            }
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Prodotto p = new Prodotto();
+                    p.setId(rs.getInt("id"));
+                    p.setNome(rs.getString("nome"));
+                    p.setDescrizione(rs.getString("descrizione"));
+                    p.setPrezzo(rs.getDouble("prezzo"));
+                    p.setCategoria(rs.getString("categoria"));
+                    lista.add(p);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Errore in ProdottoDAO.getProdottiPerCategoria:");
+            e.printStackTrace();
+        }
+        return lista;
+    }
 }
