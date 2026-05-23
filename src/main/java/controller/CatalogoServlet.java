@@ -11,12 +11,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import dao.ProdottoDAO;
 import model.Prodotto;
 
-@WebServlet("/catalogo") // Mappata semplicemente come /catalogo
+@WebServlet("/catalogo") 
 public class CatalogoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 1. Recuperiamo il parametro della categoria dall'URL (es: ?categoria=tavoli)
+        // Recuperiamo il parametro della categoria dall'URL (es: ?categoria=tavoli)
         String categoriaScelta = request.getParameter("categoria");
         
         // Se non è specificata, di default mostriamo "tutti"
@@ -24,15 +24,15 @@ public class CatalogoServlet extends HttpServlet {
             categoriaScelta = "tutti";
         }
         
-        // 2. Interroghiamo il DB filtrando per la categoria richiesta
+        // Interroghiamo il DB filtrando per la categoria richiesta
         ProdottoDAO dao = new ProdottoDAO();
         List<Prodotto> prodottiFiltrati = dao.getProdottiPerCategoria(categoriaScelta);
         
-        // 3. Salviamo la lista e la categoria attiva nella richiesta per la JSP
+        // Salviamo la lista e la categoria attiva nella richiesta per la JSP
         request.setAttribute("prodotti", prodottiFiltrati);
         request.setAttribute("categoriaAttiva", categoriaScelta.toLowerCase());
         
-        // 4. Inoltriamo il controllo alla pagina grafica catalogo.jsp
+        // Inoltriamo il controllo alla pagina grafica catalogo.jsp
         request.getRequestDispatcher("catalogo.jsp").forward(request, response);
     }
 }
