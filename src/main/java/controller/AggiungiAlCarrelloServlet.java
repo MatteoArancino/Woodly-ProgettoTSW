@@ -40,7 +40,15 @@ public class AggiungiAlCarrelloServlet extends HttpServlet {
             System.out.println("Aggiunto al carrello: " + p.getNome() + ". Totale elementi: " + carrello.getItems().size());
         }
         
-        // 5. Una volta aggiunto il prodotto, rimandiamo l'utente al catalogo 
-        response.sendRedirect("catalogo");
+        // 5. Reindirizzamento dinamico alla pagina di provenienza
+        String paginaProvenienza = request.getHeader("referer");
+        
+        if (paginaProvenienza != null && !paginaProvenienza.isEmpty()) {
+            // Se il server capisce da dove arriva il click (Home, Ricerca, ecc.), rimanda lì
+            response.sendRedirect(paginaProvenienza);
+        } else {
+            // Fallback di sicurezza: se l'header è vuoto, rimandiamo alla home
+            response.sendRedirect("index.jsp");
+        }
     }
 }
