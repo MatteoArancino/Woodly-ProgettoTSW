@@ -39,4 +39,12 @@ public class Carrello {
     public void svuota() {
         items.clear();
     }
+    
+    public int getQuantitaTotale() {
+        int totale = 0;
+        for (ItemCarrello item : items) {
+            totale += item.getQuantita();
+        }
+        return totale;
+    }
 }
