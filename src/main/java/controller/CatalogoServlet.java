@@ -11,28 +11,27 @@ import jakarta.servlet.http.HttpServletResponse;
 import dao.ProdottoDAO;
 import model.Prodotto;
 
-@WebServlet("/catalogo") 
+@WebServlet("/catalogo")
 public class CatalogoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Recuperiamo il parametro della categoria dall'URL (es: ?categoria=tavoli)
+        // Recuperiamo il parametro dall'URL
         String categoriaScelta = request.getParameter("categoria");
         
-        // Se non è specificata, di default mostriamo "tutti"
-        if (categoriaScelta == null || categoriaScelta.trim().isEmpty()) {
-            categoriaScelta = "tutti";
-        }
-        
-        // Interroghiamo il DB filtrando per la categoria richiesta
         ProdottoDAO dao = new ProdottoDAO();
         List<Prodotto> prodottiFiltrati = dao.getProdottiPerCategoria(categoriaScelta);
         
-        // Salviamo la lista e la categoria attiva nella richiesta per la JSP
+        // Passiamo i prodotti alla JSP
         request.setAttribute("prodotti", prodottiFiltrati);
-        request.setAttribute("categoriaAttiva", categoriaScelta.toLowerCase());
         
-        // Inoltriamo il controllo alla pagina grafica catalogo.jsp
+        // Se la categoria è specificata, la passiamo convertita in minuscolo, altrimenti passiamo stringa vuota
+        if (categoriaScelta != null && !categoriaScelta.trim().isEmpty()) {
+            request.setAttribute("categoriaAttiva", categoriaScelta.trim().toLowerCase());
+        } else {
+            request.setAttribute("categoriaAttiva", ""); // Stringa vuota = nessun filtro, mostra tutto
+        }
+        
         request.getRequestDispatcher("catalogo.jsp").forward(request, response);
     }
 }
