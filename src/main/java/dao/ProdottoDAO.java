@@ -49,9 +49,8 @@ public class ProdottoDAO {
         return listaProdotti;
     }
 
-    /**
-     * Recupera un singolo prodotto in base al suo ID
-     */
+    
+    // Recupera un singolo prodotto in base al suo ID
     public Prodotto getProdottoById(int id) {
         Prodotto prodotto = null;
         String query = "SELECT * FROM prodotti WHERE id = ?";
@@ -120,10 +119,10 @@ public class ProdottoDAO {
         List<Prodotto> lista = new ArrayList<>();
         String query;
         
-        // Se la categoria è nulla, vuota o impostata su "tutti", prendiamo tutto il catalogo
-        boolean prendiTutto = (categoria == null || categoria.trim().isEmpty() || categoria.equalsIgnoreCase("tutti"));
+        // Se la categoria è nulla o vuota, mostriamo A PRIORI tutti i prodotti
+        boolean mostraTutto = (categoria == null || categoria.trim().isEmpty());
         
-        if (prendiTutto) {
+        if (mostraTutto) {
             query = "SELECT * FROM prodotti";
         } else {
             query = "SELECT * FROM prodotti WHERE categoria = ?";
@@ -132,7 +131,7 @@ public class ProdottoDAO {
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
             
-            if (!prendiTutto) {
+            if (!mostraTutto) {
                 ps.setString(1, categoria.trim());
             }
             
