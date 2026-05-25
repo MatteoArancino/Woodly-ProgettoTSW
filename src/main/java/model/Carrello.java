@@ -25,7 +25,9 @@ public class Carrello {
     }
 
     public void rimuoviProdotto(int idProdotto) {
-        items.removeIf(item -> item.getProdotto().getId() == idProdotto);
+	    	if (this.items != null) {
+	            this.items.removeIf(item -> item.getProdotto().getId() == idProdotto);
+	        }
     }
 
     public double getPrezzoTotaleCarrello() {
