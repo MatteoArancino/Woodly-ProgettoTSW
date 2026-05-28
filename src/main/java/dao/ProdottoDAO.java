@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.Prodotto;
 import util.DBConnection;
+import model.Prodotto;
 
 public class ProdottoDAO {
 
@@ -125,7 +125,7 @@ public class ProdottoDAO {
         if (mostraTutto) {
             query = "SELECT * FROM prodotti";
         } else {
-            query = "SELECT * FROM prodotti WHERE categoria = ?";
+            query = "SELECT * FROM prodotti WHERE LOWER(categoria) = LOWER(?)";
         }
 
         try (Connection conn = DBConnection.getConnection();

@@ -15,29 +15,28 @@ public class RimuoviDalCarrelloServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 1. Recuperiamo l'ID del mobile da eliminare passato nell'URL (?id=...)
         String idParam = request.getParameter("id");
         
         if (idParam != null && !idParam.isEmpty()) {
             try {
                 int idProdotto = Integer.parseInt(idParam);
-                
-                // 2. Recuperiamo la sessione e il carrello corrente
                 HttpSession session = request.getSession();
                 Carrello carrello = (Carrello) session.getAttribute("carrello");
                 
-                // 3. Se il carrello esiste, eliminiamo il prodotto richiesto
                 if (carrello != null) {
                     carrello.rimuoviProdotto(idProdotto);
-                    System.out.println("Prodotto ID " + idProdotto + " rimosso con successo dal carrello.");
+                    System.out.println("Prodotto ID " + idProdotto + " rimosso.");
                 }
-                
             } catch (NumberFormatException e) {
-                System.err.println("Errore nel parsing dell'ID prodotto da rimuovere.");
+                System.err.println("Errore nel parsing dell'ID.");
             }
         }
         
-        // 4. Reindirizziamo l'utente direttamente alla pagina del carrello aggiornata
-        response.sendRedirect("carrello.jsp");
+        // CORRETTO: Rimanda alla CarrelloServlet mappata su /carrello
+        response.sendRedirect(request.getContextPath() + "/carrello");
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
     }
 }

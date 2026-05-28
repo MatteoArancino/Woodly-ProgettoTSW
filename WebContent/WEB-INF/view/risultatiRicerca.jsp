@@ -6,11 +6,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Woodly - Risultati Ricerca</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/style.css">
 </head>
 <body>
 
-    <jsp:include page="header.jsp" />
+    <jsp:include page="/WEB-INF/view/header.jsp" />
 
     <main class="section-home">
         <h2 class="section-title">Risultati per: "<%= request.getAttribute("chiaveCercata") %>"</h2>
@@ -50,7 +50,7 @@
         </div>
     </main>
 
-    <jsp:include page="footer.jsp" />
+    <jsp:include page="/WEB-INF/view/footer.jsp" />
 
 </body>
 </html>

@@ -1,32 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="model.Carrello" %>
-
-<%
-    //Recuperiamo il carrello dalla sessione corrente
-    Carrello cart = (Carrello) session.getAttribute("carrello");
-    
-    //Se il carrello esiste, prendiamo la quantità totale, altrimenti partiamo da 0
-    int conteggioArticoli = (cart != null) ? cart.getQuantitaTotale() : 0;
-%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <nav class="navbar">
-    <div class="nav-logo"><a href="index.jsp">Woodly</a></div>
+    <div class="nav-logo">
+        <a href="${pageContext.request.contextPath}/home">Woodly</a>
+    </div>
     
     <div class="search-container">
-        <form action="CercaProdottiServlet" method="GET">
+        <form action="${pageContext.request.contextPath}/CercaProdottiServlet" method="GET">
             <input type="text" name="query" placeholder="Cerca tavoli, sedie, librerie..." required>
             <button type="submit">🔍</button>
         </form>
     </div>
 
     <ul class="nav-links">
-        <li><a href="index.jsp">Home</a></li>
-        <li><a href="catalogo">Catalogo</a></li>
-        <li><a href="login.jsp">👤 Accedi</a></li>
+        <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
+        <li><a href="${pageContext.request.contextPath}/catalogo">Catalogo</a></li>
+        <li><a href="${pageContext.request.contextPath}/login">👤 Accedi</a></li>
         <li>
-            <a href="carrello.jsp" class="cart-icon">
+            <a href="${pageContext.request.contextPath}/carrello" class="cart-icon">
                 🛒 Carrello 
-                <span class="cart-badge"><%= conteggioArticoli %></span>
+                <span class="cart-badge">
+                    ${not empty sessionScope.carrello ? sessionScope.carrello.quantitaTotale : 0}
+                </span>
             </a>
         </li>
     </ul>

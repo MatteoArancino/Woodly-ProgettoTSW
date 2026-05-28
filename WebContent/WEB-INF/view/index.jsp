@@ -1,20 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %> <%-- Pronto per JSTL qualora volessi renderla dinamica in futuro --%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Woodly - Arredamento Artigianale in Vero Legno</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/style.css">
 </head>
 <body>
 
-    <jsp:include page="header.jsp" />
+    <jsp:include page="/WEB-INF/view/header.jsp" />
 
     <header class="hero">
         <div class="hero-content">
             <h1>Arredamento in Vero Legno Massello</h1>
             <p>Design senza tempo e sostenibilità. Creato artigianalmente in Italia per durare generazioni.</p>
-            <a href="catalogo" class="btn-hero">Scopri la Collezione</a>
+            <a href="${pageContext.request.contextPath}/catalogo" class="btn-hero">Scopri la Collezione</a>
         </div>
     </header>
 
@@ -25,24 +26,16 @@
         <div class="trust-item"><span>🛠️</span> <p><strong>Garanzia 5 Anni</strong> Qualità artigiana</p></div>
     </section>
 
-    <section class="promo-banner">
-        <div class="promo-content">
-            <h2>Rinnova la Zona Giorno: -20% sui Tavoli</h2>
-            <p>Solo per questa settimana. Lo sconto si applica direttamente al carrello.</p>
-            <a href="catalogo" class="btn-secondary">Approfitta Ora</a>
-        </div>
-    </section>
-
     <section class="section-home">
-        <h2 class="section-title">Esplora per Categoria</h2>
+        <h2 class="section-title">Esplora le Categorie</h2>
         <div class="categories-grid">
-            <a href="catalogo?categoria=tavoli" class="category-card">
+            <a href="${pageContext.request.contextPath}/catalogo?categoria=tavoli" class="category-card">
                 <div class="category-info"><h3>Tavoli e Scrivanie</h3></div>
             </a>
-            <a href="catalogo?categoria=sedie" class="category-card">
+            <a href="${pageContext.request.contextPath}/catalogo?categoria=sedie" class="category-card">
                 <div class="category-info"><h3>Sedie e Sgabelli</h3></div>
             </a>
-            <a href="catalogo?categoria=librerie" class="category-card">
+            <a href="${pageContext.request.contextPath}/catalogo?categoria=librerie" class="category-card">
                 <div class="category-info"><h3>Librerie e Pareti</h3></div>
             </a>
         </div>
@@ -57,7 +50,7 @@
                 <div class="prod-img-placeholder">🪵</div>
                 <h3>Tavolo Rovere Massello</h3>
                 <p class="price">850.00 €</p>
-                <a href="AggiungiAlCarrello?id=1" class="btn-add-cart">Aggiungi al carrello</a>
+                <a href="${pageContext.request.contextPath}/AggiungiAlCarrello?id=1" class="btn-add-cart">Aggiungi al carrello</a>
             </div>
             
             <div class="product-card-home">
@@ -65,13 +58,13 @@
                 <div class="prod-img-placeholder">🪵</div>
                 <h3>Libreria ad Albero</h3>
                 <p class="price">450.00 €</p>
-                <a href="AggiungiAlCarrello?id=3" class="btn-add-cart">Aggiungi al carrello</a>
+                <a href="${pageContext.request.contextPath}/AggiungiAlCarrello?id=3" class="btn-add-cart">Aggiungi al carrello</a>
             </div>
-
+            
         </div>
     </section>
 
-    <jsp:include page="footer.jsp" />
+    <jsp:include page="/WEB-INF/view/footer.jsp" />
 
 </body>
 </html>

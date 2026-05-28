@@ -1,31 +1,37 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %> <%-- Se usi Tomcat 9 o precedente, usa uri="http://java.sun.com/jsp/jstl/core" --%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Woodly - Accedi</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/style.css">
+    <script src="${pageContext.request.contextPath}/scripts/validazioneLogin.js" defer></script>
 </head>
-	<jsp:include page="header.jsp" />
+<body>
+
+    <jsp:include page="/WEB-INF/view/header.jsp" />
     
     <div class="form-container">
         <h2>Accedi a Woodly</h2>
         
-        <% if("true".equals(request.getParameter("errore"))) { %>
-            <p style="color: red; text-align: center; font-weight: bold; margin-bottom: 15px;">
-                Email o Password errate. Riprova.
+        <c:if test="${not empty requestScope.erroreLogin}">
+            <p style="color: #cc3333; text-align: center; font-weight: bold; margin-bottom: 15px;">
+                ${requestScope.erroreLogin}
             </p>
-        <% } %>
+        </c:if>
 
-        <form action="LoginServlet" method="POST">
+        <form id="formLogin" action="${pageContext.request.contextPath}/login" method="POST">
             <div class="form-group">
                 <label for="email">Indirizzo Email:</label>
-                <input type="email" id="email" name="email" required>
+                <input type="text" id="email" name="email">
+                <span id="errEmail" style="color: #cc3333; font-size: 0.85em; display: block; margin-top: 5px;"></span>
             </div>
             
             <div class="form-group">
                 <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password">
+                <span id="errPassword" style="color: #cc3333; font-size: 0.85em; display: block; margin-top: 5px;"></span>
             </div>
             
             <button type="submit" class="btn-hero" style="width: 100%; border: none; cursor: pointer; margin-top: 10px;">
@@ -34,10 +40,12 @@
         </form>
         
         <p style="text-align: center; margin-top: 20px;">
-            Non hai ancora un account? <a href="registrazione.jsp" class="btn-link">Registrati qui</a>
+            Non hai ancora un account? 
+            <a href="${pageContext.request.contextPath}/registrazione" class="btn-link">Registrati qui</a>
         </p>
     </div>
 
-	<jsp:include page="footer.jsp" />
+    <jsp:include page="/WEB-INF/view/footer.jsp" />
+
 </body>
 </html>

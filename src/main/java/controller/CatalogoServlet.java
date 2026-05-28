@@ -11,27 +11,37 @@ import jakarta.servlet.http.HttpServletResponse;
 import dao.ProdottoDAO;
 import model.Prodotto;
 
-@WebServlet("/catalogo")
+@WebServlet("/catalogo") // URL pulito visualizzato nel browser
 public class CatalogoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Recuperiamo il parametro dall'URL
-        String categoriaScelta = request.getParameter("categoria");
-        
         ProdottoDAO dao = new ProdottoDAO();
-        List<Prodotto> prodottiFiltrati = dao.getProdottiPerCategoria(categoriaScelta);
         
-        // Passiamo i prodotti alla JSP
-        request.setAttribute("prodotti", prodottiFiltrati);
+        // 1. Leggiamo il parametro della categoria dall'URL (es: /catalogo?categoria=tavoli)
+        String categoria = request.getParameter("categoria");
+        List<Prodotto> listaProdotti;
         
-        // Se la categoria è specificata, la passiamo convertita in minuscolo, altrimenti passiamo stringa vuota
-        if (categoriaScelta != null && !categoriaScelta.trim().isEmpty()) {
-            request.setAttribute("categoriaAttiva", categoriaScelta.trim().toLowerCase());
+        // 2. Logica di filtraggio: se la categoria è nulla o vuota, prendiamo tutto il catalogo
+        if (categoria != null && !categoria.trim().isEmpty()) {
+            listaProdotti = dao.getProdottiPerCategoria(categoria); // Assicurati di avere questo metodo nel DAO
         } else {
-            request.setAttribute("categoriaAttiva", ""); // Stringa vuota = nessun filtro, mostra tutto
+            listaProdotti = dao.getAllProdotti();
+            categoria = "tutti"; // Impostiamo un valore di default per gestire lo stato del bottone attivo
         }
         
-        request.getRequestDispatcher("catalogo.jsp").forward(request, response);
+        System.out.println("=== DEBUG WOODLY ===");
+        System.out.println("Categoria richiesta: " + categoria);
+        System.out.println("Numero prodotti recuperati dal DAO: " + (listaProdotti != null ? listaProdotti.size() : "NULL"));
+        System.out.println("=====================");
+
+        request.setAttribute("prodotti", listaProdotti);
+        
+        // 3. Salviamo la lista e la categoria corrente nella request (saranno lette dalla JSP)
+        request.setAttribute("prodotti", listaProdotti);
+        request.setAttribute("categoriaAttiva", categoria);
+        
+        // 4. Inoltriamo internamente alla vista protetta in WEB-INF
+        request.getRequestDispatcher("/WEB-INF/view/catalogo.jsp").forward(request, response);
     }
 }

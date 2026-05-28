@@ -5,37 +5,34 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import model.Utente;
 import util.DBConnection;
+import model.Utente;
 
 public class UtenteDAO {
 
 
-    public boolean registraUtente(Utente u) {
-        boolean inserito = false;
-        String query = "INSERT INTO utenti (nome, cognome, email, password, ruolo) VALUES (?, ?, ?, ?, ?)";
-
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(query)) {
-
-            ps.setString(1, u.getNome());
-            ps.setString(2, u.getCognome());
-            ps.setString(3, u.getEmail());
-            ps.setString(4, u.getPassword());
-            ps.setString(5, u.getRuolo()); // Di base sarà "cliente"
-
-            int righeModificate = ps.executeUpdate();
-            if (righeModificate > 0) {
-                inserito = true;
-            }
-
-        } catch (SQLException e) {
-            System.err.println("Errore in UtenteDAO.registraUtente:");
-            e.printStackTrace();
-        }
-
-        return inserito;
-    }
+	public boolean registraUtente(Utente utente) {
+	    // Query di inserimento (adegua il nome della tabella in 'utenti' o 'utente' se necessario)
+	    String query = "INSERT INTO utenti (nome, cognome, email, password) VALUES (?, ?, ?, ?)";
+	    
+	    // Sostituisci 'TuaClasseConnessione.getConnection()' con la tua classe reale di connessione
+	    try (Connection con = DBConnection.getConnection();
+	         PreparedStatement ps = con.prepareStatement(query)) {
+	        
+	        ps.setString(1, utente.getNome());
+	        ps.setString(2, utente.getCognome());
+	        ps.setString(3, utente.getEmail());
+	        ps.setString(4, utente.getPassword());
+	        
+	        int righeModificate = ps.executeUpdate();
+	        return righeModificate > 0; // Restituisce true se ha inserito la riga con successo
+	        
+	    } catch (SQLException e) {
+	        System.err.println("Errore nel DAO durante l'inserimento dell'utente:");
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
 
     
     public Utente login(String email, String password) {
@@ -67,4 +64,48 @@ public class UtenteDAO {
 
         return utenteLoggato;
     }
+    
+    public Utente verificaLogin(String email, String password) {
+        Utente utenteLoggato = null;
+        
+        // Query SQL: Cerca una riga che abbia esattamente quell'email e quella password
+        // (Attenzione: cambia "utenti" se la tua tabella si chiama "utente")
+        String query = "SELECT * FROM utenti WHERE email = ? AND password = ?";
+        
+        // Usiamo il try-with-resources per chiudere tutto in automatico (il prof apprezzerà!)
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            
+            // Inseriamo i parametri al posto dei punti interrogativi (?)
+            ps.setString(1, email);
+            ps.setString(2, password);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                // Se rs.next() è vero, significa che ha trovato una corrispondenza nel DB!
+                if (rs.next()) {
+                    utenteLoggato = new Utente();
+                    
+                    // Mappiamo i dati dal Database all'oggetto Java
+                    // (Assicurati che i nomi tra virgolette siano uguali alle colonne del tuo DB)
+                    utenteLoggato.setId(rs.getInt("id"));
+                    utenteLoggato.setNome(rs.getString("nome"));
+                    utenteLoggato.setCognome(rs.getString("cognome"));
+                    utenteLoggato.setEmail(rs.getString("email"));
+                    
+                    // Se nel database hai anche una colonna per il ruolo (admin/user)
+                    // per proteggere le pagine, scommenta questa riga:
+                    // utenteLoggato.setRuolo(rs.getString("ruolo"));
+                }
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Errore nel DAO durante la verifica del login:");
+            e.printStackTrace();
+        }
+        
+        // Se tutto è andato bene restituisce l'utente, altrimenti restituisce null (login fallito)
+        return utenteLoggato;
+    }
+    
+    
 }

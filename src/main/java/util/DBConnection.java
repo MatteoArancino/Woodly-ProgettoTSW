@@ -1,35 +1,29 @@
-package util;
+package util; // <-- Assicurati che il package sia questo
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 public class DBConnection {
+    private static DataSource ds;
 
-    // Parametri di configurazione del database
-    private static final String URL = "jdbc:mysql://localhost:3306/woodly_db?serverTimezone=UTC&useSSL=false";
-    private static final String USERNAME = "root"; 
-    private static final String PASSWORD = "ROOT";  
-    private static final String DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";
-
-  
-    public static Connection getConnection() {
-        Connection connection = null;
+    static {
         try {
-            Class.forName(DRIVER_CLASS);
-            
-            // 2. Tenta la connessione al database
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            System.out.println("Connessione a woodly_db riuscita con successo!");
-            
-        } catch (ClassNotFoundException e) {
-            System.err.println("Errore: Driver JDBC non trovato");
-            e.printStackTrace();
-        } catch (SQLException e) {
-            System.err.println("Errore: Impossibile connettersi al database");
+            InitialContext ctx = new InitialContext();
+            ds = (DataSource) ctx.lookup("java:comp/env/jdbc/woodly_db");
+            System.out.println("DataSource woodly_db inizializzato in util");
+        } catch (NamingException e) {
+            System.err.println("ERRORE");
             e.printStackTrace();
         }
-        
-        return connection;
+    }
+
+    public static Connection getConnection() throws SQLException {
+        if (ds != null) {
+            return ds.getConnection();
+        }
+        throw new SQLException("DataSource non disponibile.");
     }
 }
