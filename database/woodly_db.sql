@@ -1,4 +1,5 @@
 -- 1. Creazione del database
+DROP SCHEMA woodly_db;
 CREATE DATABASE IF NOT EXISTS woodly_db;
 USE woodly_db;
 
@@ -70,20 +71,23 @@ INSERT INTO utenti (nome, cognome, email, password, ruolo) VALUES
 
 -- 2. Popoliamo la tabella PRODOTTI (Il catalogo Woodly)
 INSERT INTO prodotti (nome, descrizione, prezzo, quantita_magazzino, immagine_url, categoria) VALUES 
-('Tavolo in Rovere Massello', 'Tavolo da pranzo in puro rovere massello, finitura a olio naturale. Dimensioni: 160x90 cm.', 850.00, 5, 'images/tavolo_rovere.jpg', 'Tavoli'),
-('Sedia in Noce Minimal', 'Sedia dal design moderno e pulito, realizzata in legno di noce. Seduta ergonomica.', 120.50, 24, 'images/sedia_noce.jpg', 'Sedie'),
-('Libreria a Parete "Albero"', 'Libreria componibile con ripiani sfalsati in legno di frassino. Altezza 2 metri.', 450.00, 3, 'images/libreria_frassino.jpg', 'Librerie'),
-('Cassettiera Vintage', 'Cassettiera a 4 cassetti in legno di recupero spazzolato. Stile rustico-chic.', 320.00, 8, 'images/cassettiera_vintage.jpg', 'Mobili da camera'),
-('Tavolino da Salotto "Goccia"', 'Tavolino basso con piano a forma di goccia in legno di ciliegio e gambe in metallo nero.', 180.00, 12, 'images/tavolino_ciliegio.jpg', 'Tavoli');
+('Tavolo in Rovere Massello', 'Tavolo da pranzo in puro rovere massello, finitura a olio naturale. Dimensioni: 160x90 cm.', 849.99, 5, 'images/tavolo_rovere.jpg', 'Tavoli'),
+('Sedia in Noce Minimal', 'Sedia dal design moderno e pulito, realizzata in legno di noce. Seduta ergonomica.', 120.99, 24, 'images/sedia_noce.jpg', 'Sedie'),
+('Libreria a Parete "Albero"', 'Libreria componibile con ripiani sfalsati in legno di frassino. Altezza 2 metri.', 449.99, 3, 'images/libreria_frassino.jpg', 'Librerie'),
+('Cassettiera Vintage', 'Cassettiera a 4 cassetti in legno di recupero spazzolato. Stile rustico-chic.', 399.99, 8, 'images/cassettiera_vintage.jpg', 'Mobili da camera'),
+('Tavolino da Salotto "Goccia"', 'Tavolino basso con piano a forma di goccia in legno di ciliegio e gambe in metallo nero.', 179.99, 12, 'images/tavolino_ciliegio.jpg', 'Tavoli'),
+('Topolino "Goccia"', 'Tavolino basso con piano a forma di goccia in legno di ciliegio e gambe in metallo nero.', 169.99, 12, 'images/tavolino_ciliegio.jpg', 'Tavoli');
 
 -- 3. Popoliamo un ordine di prova per i test
 INSERT INTO ordini (id_utente, totale, stato) VALUES 
 (2, 1091.00, 'Consegnato');
 
 INSERT INTO dettaglio_ordini (id_ordine, id_prodotto, quantita, prezzo_acquisto) VALUES 
-(1, 1, 1, 850.00),  
-(1, 2, 2, 120.50);  
+(1, 1, 1, 849.99),  
+(1, 2, 2, 199.99);  
 
 -- 4. Inseriamo una richiesta su misura di prova
 INSERT INTO richieste_su_misura (id_utente, tipo_mobile, altezza_cm, larghezza_cm, profondita_cm, materiale, note_cliente, stato) VALUES 
 (3, 'Armadio a muro a 4 ante', 280, 200, 60, 'Pino svedese', 'Vorrei le ante senza maniglie con sistema push-pull e una cassettiera interna.', 'In attesa');
+
+SELECT * FROM Utenti; 
