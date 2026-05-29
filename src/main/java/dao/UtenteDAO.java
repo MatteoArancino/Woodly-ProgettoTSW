@@ -101,10 +101,7 @@ public class UtenteDAO {
                     utenteLoggato.setNome(rs.getString("nome"));
                     utenteLoggato.setCognome(rs.getString("cognome"));
                     utenteLoggato.setEmail(rs.getString("email"));
-                    
-                    // Se nel database hai anche una colonna per il ruolo (admin/user)
-                    // per proteggere le pagine, scommenta questa riga:
-                    // utenteLoggato.setRuolo(rs.getString("ruolo"));
+                  
                 }
             }
             
