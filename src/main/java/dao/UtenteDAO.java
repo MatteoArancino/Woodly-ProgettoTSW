@@ -97,7 +97,6 @@ public class UtenteDAO {
                     utenteLoggato = new Utente();
                     
                     // Mappiamo i dati dal Database all'oggetto Java
-                    // (Assicurati che i nomi tra virgolette siano uguali alle colonne del tuo DB)
                     utenteLoggato.setId(rs.getInt("id"));
                     utenteLoggato.setNome(rs.getString("nome"));
                     utenteLoggato.setCognome(rs.getString("cognome"));
