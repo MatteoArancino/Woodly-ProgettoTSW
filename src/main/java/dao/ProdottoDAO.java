@@ -7,11 +7,26 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import util.DBConnection;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import model.Prodotto;
 
 public class ProdottoDAO {
 
+	private Connection getConnection() throws SQLException {
+        try {
+            Context initCtx = new InitialContext();
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/woodly_db"); 
+            return ds.getConnection();
+        } catch (NamingException e) {
+            throw new SQLException("Errore JNDI: impossibile connettersi al DataSource", e);
+        }
+    }
+	
     /**
      * Recupera tutti i prodotti (mobili pronti) presenti nel database
      * @return List<Prodotto> una lista di oggetti Prodotto
@@ -21,7 +36,7 @@ public class ProdottoDAO {
         String query = "SELECT * FROM prodotti";
 
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(query);
              ResultSet rs = ps.executeQuery()) {
 
@@ -55,7 +70,7 @@ public class ProdottoDAO {
         Prodotto prodotto = null;
         String query = "SELECT * FROM prodotti WHERE id = ?";
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
             
             ps.setInt(1, id); // Sostituisce il primo punto interrogativo con l'id passato come parametro
@@ -86,7 +101,7 @@ public class ProdottoDAO {
         // Query con operatore LIKE per una ricerca flessibile
         String query = "SELECT * FROM prodotti WHERE nome LIKE ? OR descrizione LIKE ? OR categoria LIKE ?";
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
             
             // Il simbolo % indica al DB di cercare la parola in qualsiasi posizione (inizio, centro, fine)
@@ -128,7 +143,7 @@ public class ProdottoDAO {
             query = "SELECT * FROM prodotti WHERE LOWER(categoria) = LOWER(?)";
         }
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
             
             if (!mostraTutto) {

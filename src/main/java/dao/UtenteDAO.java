@@ -5,18 +5,30 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import util.DBConnection;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import model.Utente;
 
 public class UtenteDAO {
 
+	private Connection getConnection() throws SQLException {
+        try {
+            Context initCtx = new InitialContext();
+            Context envCtx = (Context) initCtx.lookup("java:comp/env");
+            DataSource ds = (DataSource) envCtx.lookup("jdbc/woodly_db"); 
+            return ds.getConnection();
+        } catch (NamingException e) {
+            throw new SQLException("Errore JNDI: impossibile connettersi al DataSource", e);
+        }
+    }
 
 	public boolean registraUtente(Utente utente) {
-	    // Query di inserimento (adegua il nome della tabella in 'utenti' o 'utente' se necessario)
 	    String query = "INSERT INTO utenti (nome, cognome, email, password) VALUES (?, ?, ?, ?)";
 	    
-	    // Sostituisci 'TuaClasseConnessione.getConnection()' con la tua classe reale di connessione
-	    try (Connection con = DBConnection.getConnection();
+	    try (Connection con = getConnection();
 	         PreparedStatement ps = con.prepareStatement(query)) {
 	        
 	        ps.setString(1, utente.getNome());
@@ -39,7 +51,7 @@ public class UtenteDAO {
         Utente utenteLoggato = null;
         String query = "SELECT * FROM utenti WHERE email = ? AND password = ?";
 
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
 
             ps.setString(1, email);
@@ -73,7 +85,7 @@ public class UtenteDAO {
         String query = "SELECT * FROM utenti WHERE email = ? AND password = ?";
         
         // Usiamo il try-with-resources per chiudere tutto in automatico (il prof apprezzerà!)
-        try (Connection con = DBConnection.getConnection();
+        try (Connection con = getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
             
             // Inseriamo i parametri al posto dei punti interrogativi (?)
