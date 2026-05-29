@@ -84,7 +84,6 @@ public class UtenteDAO {
         // (Attenzione: cambia "utenti" se la tua tabella si chiama "utente")
         String query = "SELECT * FROM utenti WHERE email = ? AND password = ?";
         
-        // Usiamo il try-with-resources per chiudere tutto in automatico (il prof apprezzerà!)
         try (Connection con = getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
             
