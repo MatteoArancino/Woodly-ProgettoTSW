@@ -23,14 +23,15 @@
                     Ciao, ${sessionScope.utenteLoggato.nome}!
                 </li>
                 <li><a href="${pageContext.request.contextPath}/area-personale">👤 Profilo</a></li>
+                
+                <c:if test="${sessionScope.ruolo eq 'admin'}">
+                    <li><a href="${pageContext.request.contextPath}/admin/dashboard" style="color: #d9a74a; font-weight: bold;">🛠️ Pannello Admin</a></li>
+                </c:if>
+
             </c:when>
             <c:otherwise>
                 <li><a href="${pageContext.request.contextPath}/login">👤 Accedi</a></li>
             </c:otherwise>
-            
-            <c:if test="${sessionScope.ruolo eq 'admin'}">
-                <li><a href="${pageContext.request.contextPath}/admin/dashboard" style="color: #d9a74a; font-weight: bold;">🛠️ Pannello Admin</a></li>
-            </c:if>
         </c:choose>
         
         <li>
