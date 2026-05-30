@@ -16,7 +16,21 @@
     <ul class="nav-links">
         <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
         <li><a href="${pageContext.request.contextPath}/catalogo">Catalogo</a></li>
-        <li><a href="${pageContext.request.contextPath}/login">👤 Accedi</a></li>
+        
+        <c:choose>
+            <c:when test="${not empty sessionScope.utenteLoggato}">
+                <li style="color: #ffffff; font-weight: 600; display: flex; align-items: center; margin-right: 10px;">
+                    Ciao, ${sessionScope.utenteLoggato.nome}!
+                </li>
+                <li><a href="${pageContext.request.contextPath}/area-personale">👤 Profilo</a></li>
+            </c:when>
+            <c:otherwise>
+                <li><a href="${pageContext.request.contextPath}/login">👤 Accedi</a></li>
+            </c:otherwise>
+            
+            
+        </c:choose>
+        
         <li>
             <a href="${pageContext.request.contextPath}/carrello" class="cart-icon">
                 🛒 Carrello 
