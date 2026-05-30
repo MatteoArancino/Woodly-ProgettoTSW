@@ -31,6 +31,10 @@ CREATE TABLE ordini (
     id_utente INT NOT NULL,
     data_ordine DATETIME DEFAULT CURRENT_TIMESTAMP,
     totale DECIMAL(10,2) NOT NULL,
+    indirizzo VARCHAR(255) NOT NULL,
+    citta VARCHAR(100) NOT NULL,
+    cap VARCHAR(10) NOT NULL,
+    metodo_pagamento VARCHAR(50) NOT NULL,
     stato ENUM('In elaborazione', 'Spedito', 'Consegnato', 'Annullato') DEFAULT 'In elaborazione',
     FOREIGN KEY (id_utente) REFERENCES utenti(id) ON DELETE CASCADE
 );
@@ -79,8 +83,8 @@ INSERT INTO prodotti (nome, descrizione, prezzo, quantita_magazzino, immagine_ur
 ('Topolino "Goccia"', 'Tavolino basso con piano a forma di goccia in legno di ciliegio e gambe in metallo nero.', 169.99, 12, 'images/tavolino_ciliegio.jpg', 'Tavoli');
 
 -- 3. Popoliamo un ordine di prova per i test
-INSERT INTO ordini (id_utente, totale, stato) VALUES 
-(2, 1091.00, 'Consegnato');
+INSERT INTO ordini (id_utente, totale, indirizzo, citta, cap, metodo_pagamento, stato) VALUES 
+(2, 1091.00, 'Via Roma 1', 'Milano', '20100', 'PayPal', 'Consegnato');
 
 INSERT INTO dettaglio_ordini (id_ordine, id_prodotto, quantita, prezzo_acquisto) VALUES 
 (1, 1, 1, 849.99),  
@@ -91,3 +95,5 @@ INSERT INTO richieste_su_misura (id_utente, tipo_mobile, altezza_cm, larghezza_c
 (3, 'Armadio a muro a 4 ante', 280, 200, 60, 'Pino svedese', 'Vorrei le ante senza maniglie con sistema push-pull e una cassettiera interna.', 'In attesa');
 
 SELECT * FROM Utenti; 
+SELECT * FROM ordini;
+SELECT * FROM dettaglio_ordini;
