@@ -104,4 +104,68 @@ public class OrdineDAO {
             }
         }
     }
+    
+    public java.util.List<model.Ordine> getOrdiniPerUtente(int idUtente) {
+        java.util.List<model.Ordine> listaOrdini = new java.util.ArrayList<>();
+        
+        String queryOrdini = "SELECT * FROM ordini WHERE id_utente = ? ORDER BY data_ordine DESC";
+        String queryDettagli = "SELECT d.*, p.nome AS nome_prodotto FROM dettaglio_ordini d " +
+                               "JOIN prodotti p ON d.id_prodotto = p.id WHERE d.id_ordine = ?";
+
+        Connection conn = null;
+        PreparedStatement psOrdini = null;
+        ResultSet rsOrdini = null;
+
+        try {
+            conn = getConnection(); 
+            psOrdini = conn.prepareStatement(queryOrdini);
+            psOrdini.setInt(1, idUtente);
+            rsOrdini = psOrdini.executeQuery();
+
+            while (rsOrdini.next()) {
+                model.Ordine ordine = new model.Ordine();
+                ordine.setId(rsOrdini.getInt("id"));
+                ordine.setIdUtente(rsOrdini.getInt("id_utente"));
+                ordine.setDataOrdine(rsOrdini.getTimestamp("data_ordine"));
+                ordine.setTotale(rsOrdini.getDouble("totale"));
+                ordine.setIndirizzo(rsOrdini.getString("indirizzo"));
+                ordine.setCitta(rsOrdini.getString("citta"));
+                ordine.setCap(rsOrdini.getString("cap"));
+                ordine.setMetodoPagamento(rsOrdini.getString("metodo_pagamento"));
+                ordine.setStato(rsOrdini.getString("stato"));
+
+                // Per ogni ordine, andiamo a caricare i suoi dettagli (i prodotti comprati)
+                java.util.List<model.DettaglioOrdine> dettagli = new java.util.ArrayList<>();
+                try (PreparedStatement psDettagli = conn.prepareStatement(queryDettagli)) {
+                    psDettagli.setInt(1, ordine.getId());
+                    try (ResultSet rsDettagli = psDettagli.executeQuery()) {
+                        while (rsDettagli.next()) {
+                            model.DettaglioOrdine det = new model.DettaglioOrdine();
+                            det.setIdOrdine(rsDettagli.getInt("id_ordine"));
+                            det.setIdProdotto(rsDettagli.getInt("id_prodotto"));
+                            det.setNomeProdotto(rsDettagli.getString("nome_prodotto"));
+                            det.setQuantita(rsDettagli.getInt("quantita"));
+                            det.setPrezzoAcquisto(rsDettagli.getDouble("prezzo_acquisto"));
+                            dettagli.add(det);
+                        }
+                    }
+                }
+                
+                ordine.setDettagli(dettagli); // Agganciamo i prodotti estratti all'ordine corrente
+                listaOrdini.add(ordine);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rsOrdini != null) rsOrdini.close();
+                if (psOrdini != null) psOrdini.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return listaOrdini;
+    }
 }
