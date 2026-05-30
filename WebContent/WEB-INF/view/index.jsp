@@ -44,24 +44,20 @@
     <section class="section-home background-soft">
         <h2 class="section-title">I Nostri Pezzi Più Venduti</h2>
         <div class="products-grid-home">
-            
-            <div class="product-card-home">
-                <div class="badge-promo">Bestseller</div>
-                <div class="prod-img-placeholder">🪵</div>
-                <h3>Tavolo Rovere Massello</h3>
-                <p class="price">850.00 €</p>
-                <a href="${pageContext.request.contextPath}/AggiungiAlCarrello?id=1" class="btn-add-cart">Aggiungi al carrello</a>
-            </div>
-            
-            <div class="product-card-home">
-                <div class="badge-promo">Novità</div>
-                <div class="prod-img-placeholder">🪵</div>
-                <h3>Libreria ad Albero</h3>
-                <p class="price">450.00 €</p>
-                <a href="${pageContext.request.contextPath}/AggiungiAlCarrello?id=3" class="btn-add-cart">Aggiungi al carrello</a>
-            </div>
-            
-        </div>
+    
+	    <c:forEach var="prodotto" items="${prodottiPiuVenduti}">
+	        <div class="product-card-home">	        
+	            <div class="badge-promo">In evidenza</div>	            
+	            <img src="${pageContext.request.contextPath}/${prodotto.immagineUrl}" alt="${prodotto.nome}" style="width: 100%; border-radius: 8px; margin-bottom: 15px;">	            
+	            
+	            <h3>${prodotto.nome}</h3>	            
+	            <p class="price">${prodotto.prezzo} €</p>	            
+	            <a href="${pageContext.request.contextPath}/AggiungiAlCarrello?id=${prodotto.id}" class="btn-add-cart">Aggiungi al carrello</a>	            
+	        </div>
+	        
+	    </c:forEach>
+	    
+	</div>
     </section>
 
     <jsp:include page="/WEB-INF/view/footer.jsp" />
