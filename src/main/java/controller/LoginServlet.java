@@ -27,28 +27,28 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         UtenteDAO dao = new UtenteDAO();
-        // Richiama il tuo metodo per verificare se l'utente esiste sul Database
         Utente utente = dao.verificaLogin(email, password); 
 
         if (utente != null) {
-            // LOGIN CORRETTO
             HttpSession session = request.getSession();
             session.setAttribute("utenteLoggato", utente);
             
-            // REQUISITO DI SICUREZZA RICHIESTO DAI PROF: Generazione Session Token sicuro
+            // Recuperiamo il ruolo, togliamo gli spazi bianchi e lo costringiamo in MINUSCOLO
+            String ruoloPulito = "user";
+            if (utente.getRuolo() != null) {
+                ruoloPulito = utente.getRuolo().trim().toLowerCase();
+            }
+            
+            session.setAttribute("ruolo", ruoloPulito);
+            
+            // REQUISITO DI SICUREZZA: Generazione Session Token sicuro
             String sessionToken = UUID.randomUUID().toString();
             session.setAttribute("sessionToken", sessionToken);
-            
-            // Gestione del ruolo (es. se è admin abilitiamo i poteri di modifica catalogo)
-            if ("admin".equals(utente.getRuolo())) {
-                session.setAttribute("ruolo", "admin");
-            }
 
-            // Reindirizziamo alla Servlet della Home (es. /home o /catalogo)
+            // Reindirizziamo alla Servlet del catalogo
             response.sendRedirect(request.getContextPath() + "/catalogo");
         } else {
             // LOGIN ERRATO
-            // Passiamo l'errore come attributo della request, senza sporcare l'URL con parametri visibili
             request.setAttribute("erroreLogin", "Email o Password errate. Riprova.");
             request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
         }
