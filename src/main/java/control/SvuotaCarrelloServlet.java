@@ -1,4 +1,4 @@
-package controller;
+package control;
 
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -8,17 +8,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/logout")
-public class LogoutServlet extends HttpServlet {
+@WebServlet("/SvuotaCarrello")
+public class SvuotaCarrelloServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate(); // Elimina completamente la sessione e cancella i dati di login
-        }
-        // Ridirige l'utente alla home 
-        response.sendRedirect(request.getContextPath() + "/home");
+        HttpSession session = request.getSession();
+        
+        // Rimuove completamente il carrello dalla sessione dell'utente
+        session.removeAttribute("carrello");
+        
+        System.out.println("Il carrello è stato svuotato.");
+        
+        // Rimanda l'utente alla pagina del carrello (che risulterà vuoto)
+        response.sendRedirect(request.getContextPath() + "/carrello");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

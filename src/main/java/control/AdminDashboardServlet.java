@@ -1,4 +1,4 @@
-package controller;
+package control;
 
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -8,20 +8,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/SvuotaCarrello")
-public class SvuotaCarrelloServlet extends HttpServlet {
+@WebServlet("/admin/dashboard")
+public class AdminDashboardServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        
-        // Rimuove completamente il carrello dalla sessione dell'utente
-        session.removeAttribute("carrello");
-        
-        System.out.println("Il carrello è stato svuotato.");
-        
-        // Rimanda l'utente alla pagina del carrello (che risulterà vuoto)
-        response.sendRedirect(request.getContextPath() + "/carrello");
+        String ruolo = (String) session.getAttribute("ruolo");
+
+        // FILTRO DI SICUREZZA: Se non è admin, blocca l'accesso con un errore 403 (Forbidden)
+        if (!"admin".equals(ruolo)) {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Accesso negato: Area riservata agli amministratori.");
+            return;
+        }
+
+        request.getRequestDispatcher("/WEB-INF/view/admin/dashboard.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
