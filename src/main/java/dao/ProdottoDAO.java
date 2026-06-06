@@ -167,4 +167,53 @@ public class ProdottoDAO {
         }
         return lista;
     }
+
+    
+    // METODI PER ADMIN
+    public boolean inserisciProdotto(model.Prodotto p) {
+        String query = "INSERT INTO prodotti (nome, descrizione, prezzo, quantita_magazzino, immagine_url, categoria) VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, p.getNome());
+            ps.setString(2, p.getDescription());
+            ps.setDouble(3, p.getPrezzo());
+            ps.setInt(4, p.getQuantitaMagazzino());
+            ps.setString(5, p.getImmagineUrl());
+            ps.setString(6, p.getCategoria());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean modificaProdotto(model.Prodotto p) {
+        String query = "UPDATE prodotti SET nome=?, descrizione=?, prezzo=?, quantita_magazzino=?, immagine_url=?, categoria=? WHERE id=?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, p.getNome());
+            ps.setString(2, p.getDescription());
+            ps.setDouble(3, p.getPrezzo());
+            ps.setInt(4, p.getQuantitaMagazzino());
+            ps.setString(5, p.getImmagineUrl());
+            ps.setString(6, p.getCategoria());
+            ps.setInt(7, p.getId());
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean eliminaProdotto(int id) {
+        String query = "DELETE FROM prodotti WHERE id = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

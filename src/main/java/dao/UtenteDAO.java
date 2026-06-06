@@ -101,7 +101,7 @@ public class UtenteDAO {
                     utenteLoggato.setNome(rs.getString("nome"));
                     utenteLoggato.setCognome(rs.getString("cognome"));
                     utenteLoggato.setEmail(rs.getString("email"));
-                  
+                    utenteLoggato.setRuolo(rs.getString("ruolo"));
                 }
             }
             

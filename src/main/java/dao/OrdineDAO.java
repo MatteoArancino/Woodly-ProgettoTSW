@@ -168,4 +168,44 @@ public class OrdineDAO {
         }
         return listaOrdini;
     }
+    
+    // PER UTENTE ADMIN
+    public java.util.List<model.Ordine> getOrdiniPerAdminFiltri(String dataInizio, String dataFine, String idCliente) {
+        java.util.List<model.Ordine> listaOrdini = new java.util.ArrayList<>();
+        
+        StringBuilder queryBase = new StringBuilder("SELECT o.*, u.email FROM ordini o JOIN utenti u ON o.id_utente = u.id WHERE 1=1 ");
+        
+        if (dataInizio != null && !dataInizio.trim().isEmpty()) { queryBase.append("AND o.data_ordine >= ? "); }
+        if (dataFine != null && !dataFine.trim().isEmpty()) { queryBase.append("AND o.data_ordine <= ? "); }
+        if (idCliente != null && !idCliente.trim().isEmpty()) { queryBase.append("AND o.id_utente = ? "); }
+        queryBase.append("ORDER BY o.data_ordine DESC");
+
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(queryBase.toString())) {
+            
+            int index = 1;
+            if (dataInizio != null && !dataInizio.trim().isEmpty()) { ps.setString(index++, dataInizio + " 00:00:00"); }
+            if (dataFine != null && !dataFine.trim().isEmpty()) { ps.setString(index++, dataFine + " 23:59:59"); }
+            if (idCliente != null && !idCliente.trim().isEmpty()) { ps.setInt(index++, Integer.parseInt(idCliente)); }
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    model.Ordine ordine = new model.Ordine();
+                    ordine.setId(rs.getInt("id"));
+                    ordine.setIdUtente(rs.getInt("id_utente"));
+                    ordine.setDataOrdine(rs.getTimestamp("data_ordine"));
+                    ordine.setTotale(rs.getDouble("totale"));
+                    ordine.setIndirizzo(rs.getString("indirizzo") + ", " + rs.getString("citta"));
+                    ordine.setMetodoPagamento(rs.getString("metodo_pagamento"));
+                    ordine.setStato(rs.getString("stato"));
+                    
+                    ordine.setCap(rs.getString("email")); 
+                    listaOrdini.add(ordine);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listaOrdini;
+    }
 }
