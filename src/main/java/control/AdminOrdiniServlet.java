@@ -17,11 +17,12 @@ public class AdminOrdiniServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (!"admin".equals(session.getAttribute("ruolo"))) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
-            return;
-        }
+	    	HttpSession session = request.getSession(false);
+	
+	    	if (session == null || session.getAttribute("sessionToken") == null || !"admin".equals(session.getAttribute("ruolo"))) {
+	    	    response.sendError(HttpServletResponse.SC_FORBIDDEN);
+	    	    return;
+	    	}
 
         String dataInizio = request.getParameter("dataInizio");
         String dataFine = request.getParameter("dataFine");

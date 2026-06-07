@@ -18,15 +18,15 @@ public class CheckoutServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Utente utenteLoggato = (Utente) session.getAttribute("utenteLoggato");
-        Carrello carrello = (Carrello) session.getAttribute("carrello");
-
-        if (utenteLoggato == null) {
-            request.setAttribute("erroreLogin", "Devi effettuare l'accesso o registrarti per completare l'acquisto!");
-            request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
-            return;
-        }
+	    	HttpSession session = request.getSession(false);
+	    	Utente utenteLoggato = (session != null) ? (Utente) session.getAttribute("utenteLoggato") : null;
+	    	Carrello carrello = (session != null) ? (Carrello) session.getAttribute("carrello") : null;
+	
+	    	if (session == null || session.getAttribute("sessionToken") == null || utenteLoggato == null) {
+	    	    request.setAttribute("erroreLogin", "Devi effettuare l'accesso o registrarti per completare l'acquisto!");
+	    	    request.getRequestDispatcher("/WEB-INF/view/login.jsp").forward(request, response);
+	    	    return;
+	    	}
 
         if (carrello == null || carrello.getItems().isEmpty()) {
             response.sendRedirect(request.getContextPath() + "/carrello");
@@ -37,14 +37,14 @@ public class CheckoutServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Utente utenteLoggato = (Utente) session.getAttribute("utenteLoggato");
-        Carrello carrello = (Carrello) session.getAttribute("carrello");
-
-        if (utenteLoggato == null || carrello == null || carrello.getItems().isEmpty()) {
-            response.sendRedirect(request.getContextPath() + "/home");
-            return;
-        }
+	    	HttpSession session = request.getSession(false);
+	    	Utente utenteLoggato = (session != null) ? (Utente) session.getAttribute("utenteLoggato") : null;
+	    	Carrello carrello = (session != null) ? (Carrello) session.getAttribute("carrello") : null;
+	
+	    	if (session == null || session.getAttribute("sessionToken") == null || utenteLoggato == null || carrello == null || carrello.getItems().isEmpty()) {
+	    	    response.sendRedirect(request.getContextPath() + "/home");
+	    	    return;
+	    	}
 
         String indirizzo = request.getParameter("indirizzo");
         String citta = request.getParameter("citta");
