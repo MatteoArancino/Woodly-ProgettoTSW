@@ -204,4 +204,40 @@ public class ProdottoDAO {
             return false;
         }
     }
+    
+    public List<Prodotto> getProdottiPiuVenduti(int limit) {
+        List<Prodotto> topProdotti = new ArrayList<>();
+        
+        // La query magica che incrocia prodotti e vendite
+        String query = "SELECT p.*, SUM(d.quantita) AS totale_vendite " +
+                       "FROM prodotti p " +
+                       "JOIN dettaglio_ordini d ON p.id = d.id_prodotto " +
+                       "GROUP BY p.id " +
+                       "ORDER BY totale_vendite DESC " +
+                       "LIMIT ?";
+                       
+        try (Connection conn = getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+             
+            ps.setInt(1, limit);
+            
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Prodotto p = new Prodotto();
+                    p.setId(rs.getInt("id"));
+                    p.setNome(rs.getString("nome"));
+                    p.setDescrizione(rs.getString("descrizione"));
+                    p.setPrezzo(rs.getDouble("prezzo"));
+                    p.setImmagineUrl(rs.getString("immagine_url"));
+                    p.setCategoria(rs.getString("categoria"));
+                    
+                    topProdotti.add(p);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return topProdotti;
+    }
 }

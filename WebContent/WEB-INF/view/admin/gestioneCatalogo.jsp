@@ -14,6 +14,15 @@
     <main style="max-width: 1100px; margin: 40px auto; padding: 0 20px; display: flex; gap: 30px; flex-wrap: wrap;">
         
         <div style="flex: 1; min-width: 300px; background: white; padding: 25px; border-radius: 8px; border: 1px solid #ddd; height: fit-content;">
+            
+            <c:if test="${not empty sessionScope.messaggioSuccesso}">
+                <div style="background-color: #d4edda; color: #155724; padding: 12px; border-radius: 5px; margin-bottom: 15px; text-align: center; border: 1px solid #c3e6cb; font-weight: bold;">
+                    ✔ ${sessionScope.messaggioSuccesso}
+                </div>
+                <%-- Pulizia del messaggio dalla sessione dopo averlo mostrato --%>
+                <c:remove var="messaggioSuccesso" scope="session" />
+            </c:if>
+
             <h3 style="margin-top:0;">
                 <c:choose>
                     <c:when test="${not empty prodottoSelezionato}">✏️ Modifica Mobile ID #${prodottoSelezionato.id}</c:when>
@@ -21,7 +30,7 @@
                 </c:choose>
             </h3>
             
-            <form action="${pageContext.request.contextPath}/admin/catalogo" method="POST" style="display: flex; flex-direction: column; gap: 12px;">
+            <form action="${pageContext.request.contextPath}/admin/catalogo" method="POST" enctype="multipart/form-data" style="display: flex; flex-direction: column; gap: 12px;">
                 <input type="hidden" name="id" value="${prodottoSelezionato.id}">
                 
                 <label style="font-size:13px; font-weight:600;">Nome Prodotto:</label>
@@ -41,14 +50,19 @@
                 <label style="font-size:13px; font-weight:600;">Quantità Magazzino:</label>
                 <input type="number" name="quantita" value="${prodottoSelezionato.quantitaMagazzino}" required style="padding:8px; border:1px solid #ccc; border-radius:4px;">
 
-                <label style="font-size:13px; font-weight:600;">URL Immagine:</label>
-                <input type="text" name="immagineUrl" value="${prodottoSelezionato.immagineUrl}" placeholder="es: /images/tavolo.jpg" style="padding:8px; border:1px solid #ccc; border-radius:4px;">
+                <%-- 🔥 REQUISITO: FILE EXPLORER PER L'IMMAGINE --%>
+                <label style="font-size:13px; font-weight:600;">Immagine del Prodotto:</label>
+                <c:if test="${not empty prodottoSelezionato.immagineUrl}">
+                    <span style="font-size: 11px; color: #666;">Immagine attuale: ${prodottoSelezionato.immagineUrl}</span>
+                    <input type="hidden" name="vecchiaImmagine" value="${prodottoSelezionato.immagineUrl}">
+                </c:if>
+                <input type="file" name="immagine" accept="image/*" style="padding:8px; border:1px solid #ccc; border-radius:4px;" ${empty prodottoSelezionato ? 'required' : ''}>
 
                 <label style="font-size:13px; font-weight:600;">Descrizione:</label>
                 <textarea name="descrizione" rows="4" required style="padding:8px; border:1px solid #ccc; border-radius:4px; resize:none;">${prodottoSelezionato.descrizione}</textarea>
 
                 <button type="submit" style="background:#28a745; color:white; border:none; padding:12px; font-weight:600; border-radius:4px; cursor:pointer; margin-top:10px;">
-                    Salva Modifiche
+                    Salva Prodotto
                 </button>
                 <c:if test="${not empty prodottoSelezionato}">
                     <a href="${pageContext.request.contextPath}/admin/catalogo" style="text-align:center; color:#666; font-size:13px; margin-top:5px;">Annulla Modifica</a>
@@ -80,7 +94,8 @@
                             <td style="padding:10px; text-align:center; font-weight:bold; color:${prod.quantitaMagazzino <= 2 ? '#dc3545' : '#28a745'}">${prod.quantitaMagazzino}</td>
                             <td style="padding:10px; text-align:center; display:flex; gap:8px; justify-content:center;">
                                 <a href="${pageContext.request.contextPath}/admin/catalogo?idModifica=${prod.id}" style="background:#007bff; color:white; padding:5px 10px; text-decoration:none; border-radius:3px; font-size:12px;">Modifica</a>
-                                <a href="${pageContext.request.contextPath}/admin/catalogo?action=delete&id=${prod.id}" onclick="return confirm('Sei sicuro di voler eliminare questo prodotto?');" style="background:#dc3545; color:white; padding:5px 10px; text-decoration:none; border-radius:3px; font-size:12px;">Elimina</a>
+                                
+                                <a href="${pageContext.request.contextPath}/admin/catalogo?action=delete&id=${prod.id}" style="background:#dc3545; color:white; padding:5px 10px; text-decoration:none; border-radius:3px; font-size:12px;">Elimina</a>
                             </td>
                         </tr>
                     </c:forEach>

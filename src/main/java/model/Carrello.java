@@ -14,14 +14,16 @@ public class Carrello {
         return items;
     }
 
-    public void aggiungiProdotto(Prodotto p, int quantita) {
+    public void aggiungiProdotto(Prodotto prodotto, int quantita) {
         for (ItemCarrello item : items) {
-            if (item.getProdotto().getId() == p.getId()) {
-                item.incrementaQuantita(quantita);
-                return; // Prodotto trovato e aggiornato, usciamo dal metodo
+            if (item.getProdotto().getId() == prodotto.getId()) {
+                // Il prodotto c'è già, sommo le quantità
+                item.setQuantita(item.getQuantita() + quantita);
+                return;
             }
         }
-        items.add(new ItemCarrello(p, quantita));
+        // Il prodotto non c'era, lo aggiungo come nuovo
+        items.add(new ItemCarrello(prodotto, quantita));
     }
 
     public void rimuoviProdotto(int idProdotto) {

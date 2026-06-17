@@ -67,9 +67,19 @@ CREATE TABLE richieste_su_misura (
     FOREIGN KEY (id_utente) REFERENCES utenti(id) ON DELETE CASCADE
 );
 
+-- 7, Tabella Carrello Persistente (Per mantenere gli articoli tra le sessioni)
+CREATE TABLE carrello_salvato (
+    id_utente INT,
+    id_prodotto INT,
+    quantita INT NOT NULL,
+    PRIMARY KEY (id_utente, id_prodotto),
+    FOREIGN KEY (id_utente) REFERENCES utenti(id) ON DELETE CASCADE,
+    FOREIGN KEY (id_prodotto) REFERENCES prodotti(id) ON DELETE CASCADE
+);
+
 -- 1. Popoliamo la tabella UTENTI
 INSERT INTO utenti (nome, cognome, email, password, ruolo) VALUES 
-('Mastro', 'Geppetto', 'admin@woodly.it', 'hash_password_admin_123', 'admin'),
+('Mastro', 'Geppetto', 'admin@woodly.it', 'hash_password_admin_123', 'admin'), 
 ('Mario', 'Rossi', 'mario.rossi@email.com', 'hash_password_mario_456', 'cliente'),
 ('Giulia', 'Bianchi', 'giulia.b@email.com', 'hash_password_giulia_789', 'cliente'),
 ('Luca', 'Verdi', 'luca.verdi@email.com', 'hash_password_luca_012', 'cliente');
