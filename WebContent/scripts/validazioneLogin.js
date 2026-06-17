@@ -6,32 +6,47 @@ document.addEventListener("DOMContentLoaded", function() {
     const errEmail = document.getElementById("errEmail");
     const errPassword = document.getElementById("errPassword");
 
-    form.addEventListener("submit", function(event) {
-        let formatoValido = true;
+    // Espressione regolare per l'email
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        // Reset completo dei messaggi rossi precedenti
+    // --- FUNZIONI DI VALIDAZIONE SINGOLE ---
+    function validaEmail() {
         errEmail.textContent = "";
-        errPassword.textContent = "";
-
-        // 1. Controllo validità dell'Email
         const emailValue = emailInput.value.trim();
+        
         if (emailValue === "") {
             errEmail.textContent = "Il campo Email non può essere vuoto.";
-            formatoValido = false;
-        } else if (!emailValue.includes("@") || !emailValue.includes(".")) {
+            return false;
+        } else if (!regexEmail.test(emailValue)) {
             errEmail.textContent = "Inserisci un indirizzo email valido (es. nome@dominio.it).";
-            formatoValido = false;
+            return false;
         }
+        return true;
+    }
 
-        // 2. Controllo validità della Password
+    function validaPassword() {
+        errPassword.textContent = "";
         const passwordValue = passwordInput.value.trim();
+        
         if (passwordValue === "") {
             errPassword.textContent = "Il campo Password non può essere vuoto.";
-            formatoValido = false;
+            return false;
         }
+        return true;
+    }
 
-        // Se anche solo un campo è invalido, blocchiamo la partenza del form verso la Servlet
-        if (!formatoValido) {
+
+    emailInput.addEventListener("change", validaEmail);
+    passwordInput.addEventListener("change", validaPassword);
+
+    // --- VALIDAZIONE AL PREMERE DI SUBMIT ---
+    form.addEventListener("submit", function(event) {
+        // Esegue le validazioni contemporaneamente
+        let eValido = validaEmail();
+        let pValido = validaPassword();
+
+        // Se anche solo un campo è invalido, blocchiamo la partenza verso la Servlet
+        if (!eValido || !pValido) {
             event.preventDefault();
         }
     });

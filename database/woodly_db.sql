@@ -22,7 +22,8 @@ CREATE TABLE prodotti (
     prezzo DECIMAL(10,2) NOT NULL, -- Formato perfetto per la valuta (es. 1250.50)
     quantita_magazzino INT DEFAULT 0,
     immagine_url VARCHAR(255),
-    categoria VARCHAR(50) -- es. 'Tavoli', 'Sedie', 'Armadi'
+    categoria VARCHAR(50), -- es. 'Tavoli', 'Sedie', 'Armadi'
+    eliminato BOOLEAN DEFAULT FALSE
 );
 
 -- 4. Tabella Ordini (Lo storico degli acquisti dei mobili pronti)

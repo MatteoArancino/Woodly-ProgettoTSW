@@ -31,10 +31,9 @@ public class ProdottoDAO {
      * Recupera tutti i prodotti (mobili pronti) presenti nel database
      * @return List<Prodotto> una lista di oggetti Prodotto
      */
-    public List<Prodotto> getAllProdotti() {
+	public List<Prodotto> getAllProdotti() {
         List<Prodotto> listaProdotti = new ArrayList<>();
-        String query = "SELECT * FROM prodotti";
-
+        String query = "SELECT * FROM prodotti WHERE eliminato = false"; 
 
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(query);
@@ -42,8 +41,6 @@ public class ProdottoDAO {
 
             while (rs.next()) {
                 Prodotto prodotto = new Prodotto();
-                
-                // Prendiamo i dati dalle colonne del DB (usando i nomi esatti delle tabelle)
                 prodotto.setId(rs.getInt("id"));
                 prodotto.setNome(rs.getString("nome"));
                 prodotto.setDescrizione(rs.getString("descrizione"));
@@ -51,16 +48,11 @@ public class ProdottoDAO {
                 prodotto.setQuantitaMagazzino(rs.getInt("quantita_magazzino"));
                 prodotto.setImmagineUrl(rs.getString("immagine_url"));
                 prodotto.setCategoria(rs.getString("categoria"));
-
-                // Aggiungiamo il prodotto appena creato alla lista
                 listaProdotti.add(prodotto);
             }
-
         } catch (SQLException e) {
-            System.err.println("Errore nel metodo getAllProdotti di ProdottoDAO:");
             e.printStackTrace();
         }
-
         return listaProdotti;
     }
 
@@ -98,13 +90,13 @@ public class ProdottoDAO {
     
     public List<Prodotto> cercaProdotti(String parolaChiave) {
         List<Prodotto> listaRisultati = new ArrayList<>();
-        // Query con operatore LIKE per una ricerca flessibile
-        String query = "SELECT * FROM prodotti WHERE nome LIKE ? OR descrizione LIKE ? OR categoria LIKE ?";
+      
+        String query = "SELECT * FROM prodotti WHERE (nome LIKE ? OR descrizione LIKE ? OR categoria LIKE ?) AND eliminato = false";
 
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
-            
-            // Il simbolo % indica al DB di cercare la parola in qualsiasi posizione (inizio, centro, fine)
+        		
+        		// Il simbolo % indica al DB di cercare la parola in qualsiasi posizione (inizio, centro, fine)
             String parametroRicerca = "%" + parolaChiave + "%";
             ps.setString(1, parametroRicerca);
             ps.setString(2, parametroRicerca);
@@ -118,13 +110,10 @@ public class ProdottoDAO {
                     p.setDescrizione(rs.getString("descrizione"));
                     p.setPrezzo(rs.getDouble("prezzo"));
                     p.setCategoria(rs.getString("categoria"));
-                    // Se hai altri campi nel costruttore/proprietà del tuo modello inseriscili qui
-                    
                     listaRisultati.add(p);
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Errore in ProdottoDAO.cercaProdotti:");
             e.printStackTrace();
         }
         return listaRisultati;
@@ -133,14 +122,14 @@ public class ProdottoDAO {
     public List<Prodotto> getProdottiPerCategoria(String categoria) {
         List<Prodotto> lista = new ArrayList<>();
         String query;
-        
+    
         // Se la categoria è nulla o vuota, mostriamo A PRIORI tutti i prodotti
         boolean mostraTutto = (categoria == null || categoria.trim().isEmpty());
         
         if (mostraTutto) {
-            query = "SELECT * FROM prodotti";
+            query = "SELECT * FROM prodotti WHERE eliminato = false";
         } else {
-            query = "SELECT * FROM prodotti WHERE LOWER(categoria) = LOWER(?)";
+            query = "SELECT * FROM prodotti WHERE LOWER(categoria) = LOWER(?) AND eliminato = false";
         }
 
         try (Connection conn = getConnection();
@@ -162,7 +151,6 @@ public class ProdottoDAO {
                 }
             }
         } catch (SQLException e) {
-            System.err.println("Errore in ProdottoDAO.getProdottiPerCategoria:");
             e.printStackTrace();
         }
         return lista;
@@ -206,7 +194,7 @@ public class ProdottoDAO {
     }
 
     public boolean eliminaProdotto(int id) {
-        String query = "DELETE FROM prodotti WHERE id = ?";
+        String query = "UPDATE prodotti SET eliminato = true WHERE id = ?";
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setInt(1, id);

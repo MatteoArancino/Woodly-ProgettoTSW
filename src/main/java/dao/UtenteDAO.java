@@ -114,5 +114,18 @@ public class UtenteDAO {
         return utenteLoggato;
     }
     
+    public boolean esisteEmail(String email) {
+        String query = "SELECT id FROM utenti WHERE email = ?";
+        try (Connection con = getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, email);
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next(); // Ritorna true se l'email esiste già, false se è libera
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     
 }
