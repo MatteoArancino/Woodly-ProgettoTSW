@@ -48,8 +48,8 @@
 	    <c:forEach var="prodotto" items="${prodottiPiuVenduti}">
 	        <div class="product-card-home">	        
 	            <div class="badge-promo">In evidenza</div>	            
-	            <img src="${pageContext.request.contextPath}/${prodotto.immagineUrl}" alt="${prodotto.nome}" style="width: 100%; border-radius: 8px; margin-bottom: 15px;">	            
-	            
+	            <img src="${pageContext.request.contextPath}/${not empty p.immagineUrl ? p.immagineUrl : 'images/default.png'}" onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/images/default.png';" alt="${p.nome}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 10px;"><h3>${p.nome}</h3>
+                               
 	            <h3>${prodotto.nome}</h3>	            
 	            <p class="price">${prodotto.prezzo} €</p>	            
 	            <a href="${pageContext.request.contextPath}/AggiungiAlCarrello?id=${prodotto.id}" class="btn-add-cart">Aggiungi al carrello</a>	            

@@ -91,7 +91,7 @@ INSERT INTO prodotti (nome, descrizione, prezzo, quantita_magazzino, immagine_ur
 ('Libreria a Parete "Albero"', 'Libreria componibile con ripiani sfalsati in legno di frassino. Altezza 2 metri.', 449.99, 3, 'images/libreria_frassino.jpg', 'Librerie'),
 ('Cassettiera Vintage', 'Cassettiera a 4 cassetti in legno di recupero spazzolato. Stile rustico-chic.', 399.99, 8, 'images/cassettiera_vintage.jpg', 'Mobili da camera'),
 ('Tavolino da Salotto "Goccia"', 'Tavolino basso con piano a forma di goccia in legno di ciliegio e gambe in metallo nero.', 179.99, 12, 'images/tavolino_ciliegio.jpg', 'Tavoli'),
-('Topolino "Goccia"', 'Tavolino basso con piano a forma di goccia in legno di ciliegio e gambe in metallo nero.', 169.99, 12, 'images/tavolino_ciliegio.jpg', 'Tavoli');
+('Topolino "DoppioGoccia"', 'Tavolino basso con piano a forma di goccia in legno di ciliegio e gambe in metallo nero.', 169.99, 12, null, 'Tavoli');
 
 -- 3. Popoliamo un ordine di prova per i test
 INSERT INTO ordini (id_utente, totale, indirizzo, citta, cap, metodo_pagamento, stato) VALUES 
@@ -108,3 +108,4 @@ INSERT INTO richieste_su_misura (id_utente, tipo_mobile, altezza_cm, larghezza_c
 SELECT * FROM Utenti; 
 SELECT * FROM ordini;
 SELECT * FROM dettaglio_ordini;
+select * FROM carrello_salvato;

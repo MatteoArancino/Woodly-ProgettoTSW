@@ -35,10 +35,8 @@
                     <c:otherwise>
                         <c:forEach var="p" items="${requestScope.prodotti}">
                             <div class="product-card-home">
-                                <div class="prod-img-placeholder">🪵</div>
-                                <h3>${p.nome}</h3>
-                                <%-- Usiamo il nome corretto della proprietà del tuo modulo Bean (es. descrizione o description) --%>
-                                <p class="prod-descrizione">${p.description}</p>
+                               <img src="${pageContext.request.contextPath}/${not empty p.immagineUrl ? p.immagineUrl : 'images/default.png'}" onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/images/default.png';" alt="${p.nome}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 10px;"><h3>${p.nome}</h3>
+                               <p class="prod-descrizione">${p.description}</p>
                                 <p class="price">${p.prezzo} €</p>
                                 
                                 <%-- Form per l'aggiunta sicura in POST alla Servlet dedicata del carrello --%>

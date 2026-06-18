@@ -35,7 +35,7 @@
                     for (Prodotto p : risultati) {
             %>
                     <div class="product-card-home">
-                        <div class="prod-img-placeholder">🪵</div>
+                        <img src="${pageContext.request.contextPath}/<%= (p.getImmagineUrl() != null && !p.getImmagineUrl().isEmpty()) ? p.getImmagineUrl() : "images/default.png" %>" onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/images/default.png';" alt="<%= p.getNome() %>" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 10px;">
                         <h3><%= p.getNome() %></h3>
                         <p style="font-size: 0.9em; color: #6d4a2a; margin-bottom: 12px; min-height: 40px;">
                             <%= p.getDescription() %>
