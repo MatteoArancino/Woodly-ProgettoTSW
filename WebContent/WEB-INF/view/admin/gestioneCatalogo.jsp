@@ -50,7 +50,6 @@
                 <label style="font-size:13px; font-weight:600;">Quantità Magazzino:</label>
                 <input type="number" name="quantita" value="${prodottoSelezionato.quantitaMagazzino}" required style="padding:8px; border:1px solid #ccc; border-radius:4px;">
 
-                <%-- 🔥 REQUISITO: FILE EXPLORER PER L'IMMAGINE --%>
                 <label style="font-size:13px; font-weight:600;">Immagine del Prodotto:</label>
                 <c:if test="${not empty prodottoSelezionato.immagineUrl}">
                     <span style="font-size: 11px; color: #666;">Immagine attuale: ${prodottoSelezionato.immagineUrl}</span>
@@ -59,7 +58,7 @@
                 <input type="file" name="immagine" accept="image/*" style="padding:8px; border:1px solid #ccc; border-radius:4px;" ${empty prodottoSelezionato ? 'required' : ''}>
 
                 <label style="font-size:13px; font-weight:600;">Descrizione:</label>
-                <textarea name="descrizione" rows="4" required style="padding:8px; border:1px solid #ccc; border-radius:4px; resize:none;">${prodottoSelezionato.descrizione}</textarea>
+                <textarea name="descrizione" rows="4" required style="padding:8px; border:1px solid #ccc; border-radius:4px; resize:none;">${prodottoSelezionato.description}</textarea>
 
                 <button type="submit" style="background:#28a745; color:white; border:none; padding:12px; font-weight:600; border-radius:4px; cursor:pointer; margin-top:10px;">
                     Salva Prodotto
@@ -102,6 +101,8 @@
                 </tbody>
             </table>
         </div>
+        
+        
     </main>
 
     <jsp:include page="/WEB-INF/view/footer.jsp" />

@@ -13,6 +13,7 @@ import dao.ProdottoDAO;
 import model.Prodotto;
 
 @WebServlet("/admin/catalogo")
+@jakarta.servlet.annotation.MultipartConfig
 public class AdminCatalogoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -74,10 +75,24 @@ public class AdminCatalogoServlet extends HttpServlet {
 
         if (filePart != null && filePart.getSize() > 0) {
             String fileName = filePart.getSubmittedFileName();
-            // Salviamo l'immagine nella cartella
-            String uploadPath = getServletContext().getRealPath("") + "/images/" + fileName;
-            filePart.write(uploadPath);
-            imgUrl = "images/" + fileName;
+            
+           
+            if (fileName != null && !fileName.trim().isEmpty()) {
+                //Definizione percorso esatto della cartella "images" nel server
+                String cartellaImages = getServletContext().getRealPath("") + java.io.File.separator + "images";
+                java.io.File directory = new java.io.File(cartellaImages);
+                
+                // Se la cartella non esiste, la creiamo
+                if (!directory.exists()) {
+                    directory.mkdirs(); // Crea la cartella e tutte le sottocartelle necessarie
+                }
+                
+                String uploadPath = cartellaImages + java.io.File.separator + fileName;
+                filePart.write(uploadPath);
+                
+                // Aggiorniamo l'URL per il database
+                imgUrl = "images/" + fileName;
+            }
         }
 
         // Costruzione oggetto Prodotto
