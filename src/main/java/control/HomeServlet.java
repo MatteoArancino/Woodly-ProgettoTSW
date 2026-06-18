@@ -11,27 +11,30 @@ import jakarta.servlet.http.HttpServletResponse;
 import dao.ProdottoDAO;
 import model.Prodotto;
 
-@WebServlet(urlPatterns = {"/home", "/index"})
+@WebServlet("/home")
 public class HomeServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // 1. Istanziamo il DAO 
         ProdottoDAO dao = new ProdottoDAO();
         
-        // 2. Recuperiamo tutti i prodotti dal database
-        List<Prodotto> tuttiIProdotti = dao.getAllProdotti();
+        // Recuperiamo i 4 prodotti più venduti basandoci sugli ordini
+        List<Prodotto> prodottiPiuVenduti = dao.getProdottiPiuVenduti(4);
         
-        // 3. Selezioniamo solo una parte di prodotti per la vetrina della Home
-        List<Prodotto> prodottiPiuVenduti = tuttiIProdotti;
-        if (tuttiIProdotti != null && tuttiIProdotti.size() > 4) {
-            prodottiPiuVenduti = tuttiIProdotti.subList(0, 4); // Prende solo i primi 4 prodotti
+        // Per sicurezza: se il DB non ha ancora registrato nessuna vendita, 
+        // mostriamo comunque 4 prodotti dal catalogo per non lasciare la Home vuota.
+        if (prodottiPiuVenduti == null || prodottiPiuVenduti.isEmpty()) {
+            List<Prodotto> tuttiIProdotti = dao.getAllProdotti();
+            if (tuttiIProdotti != null && tuttiIProdotti.size() > 4) {
+                prodottiPiuVenduti = tuttiIProdotti.subList(0, 4);
+            } else {
+                prodottiPiuVenduti = tuttiIProdotti; // Se ci sono meno di 4 prodotti, li prende tutti
+            }
         }
         
-        // 4. Mettiamo la lista dentro un attributo della request chiamato "prodottiPiuVenduti"
+        // Mettiamo la lista dentro un attributo della request chiamato "prodottiPiuVenduti"
         request.setAttribute("prodottiPiuVenduti", prodottiPiuVenduti);
         
-        // 5. Inoltriamo la richiesta alla pagina JSP protetta
         request.getRequestDispatcher("/WEB-INF/view/index.jsp").forward(request, response);
     }
 
