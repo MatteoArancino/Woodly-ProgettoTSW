@@ -12,12 +12,12 @@
     <jsp:include page="/WEB-INF/view/header.jsp" />
 
     <main class="carrello-premium-container">
-        <div class="vuoto-premium-box" style="padding: 60px 20px;">
-            <div class="vuoto-art" style="color: #27ae60;">✨</div>
+        <div class="vuoto-premium-box conferma-ordine-box">
+            <div class="vuoto-art ordine-successo-icon">✨</div>
             <h3>Acquisto Completato!</h3>
             <p>${messaggioSuccesso}</p>
-            <p style="font-size: 14px; color: #666; margin-top: -10px;">Riceverai a breve un'email con i dettagli per tracciare la spedizione del tuo pezzo artigianale.</p>
-            <a href="${pageContext.request.contextPath}/catalogo" class="btn-hero" style="margin-top: 20px;">Continua lo Shopping</a>
+            <p class="conferma-ordine-sottotesto">Riceverai a breve un'email con i dettagli per tracciare la spedizione del tuo pezzo artigianale.</p>
+            <a href="${pageContext.request.contextPath}/catalogo" class="btn-hero btn-conferma-shopping">Continua lo Shopping</a>
         </div>
     </main>
 

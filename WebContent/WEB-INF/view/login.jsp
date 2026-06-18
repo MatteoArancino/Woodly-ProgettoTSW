@@ -16,7 +16,7 @@
         <h2>Accedi a Woodly</h2>
         
         <c:if test="${not empty requestScope.erroreLogin}">
-            <p style="color: #cc3333; text-align: center; font-weight: bold; margin-bottom: 15px;">
+            <p class="login-errore-globale">
                 ${requestScope.erroreLogin}
             </p>
         </c:if>
@@ -25,21 +25,21 @@
             <div class="form-group">
                 <label for="email">Indirizzo Email:</label>
                 <input type="text" id="email" name="email">
-                <span id="errEmail" style="color: #cc3333; font-size: 0.85em; display: block; margin-top: 5px;"></span>
+                <span id="errEmail" class="login-errore-campo"></span>
             </div>
             
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password">
-                <span id="errPassword" style="color: #cc3333; font-size: 0.85em; display: block; margin-top: 5px;"></span>
+                <span id="errPassword" class="login-errore-campo"></span>
             </div>
             
-            <button type="submit" class="btn-hero" style="width: 100%; border: none; cursor: pointer; margin-top: 10px;">
+            <button type="submit" class="btn-hero btn-login-submit">
                 Accedi
             </button>
         </form>
         
-        <p style="text-align: center; margin-top: 20px;">
+        <p class="login-footer-text">
             Non hai ancora un account? 
             <a href="${pageContext.request.contextPath}/registrazione" class="btn-link">Registrati qui</a>
         </p>

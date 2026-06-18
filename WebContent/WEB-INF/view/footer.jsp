@@ -33,22 +33,5 @@
         </div>
     </div>
     
-    <script>
-	    window.addEventListener("beforeunload", function() {
-	        // Salva la posizione esatta dello scroll in memoria
-	        localStorage.setItem("scrollPosition", window.scrollY);
-	    });
-	
-	    // Appena la pagina ha finito di caricare
-	    window.addEventListener("load", function() {
-	        // Controlla se c'è una posizione salvata in memoria
-	        let savedPosition = localStorage.getItem("scrollPosition");
-	        if(savedPosition !== null) {
-	            // Torna esattamente a quell'altezza
-	            window.scrollTo(0, parseInt(savedPosition));
-	            // Pulisce la memoria
-	            localStorage.removeItem("scrollPosition");
-	        }
-	    });
-	</script>	
+    <script src="${pageContext.request.contextPath}/scripts/mantieniScroll.js"></script>	
 </footer>

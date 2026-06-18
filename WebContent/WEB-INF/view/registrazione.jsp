@@ -16,7 +16,7 @@
         <h2>Crea il tuo Account Woodly</h2>
         
         <c:if test="${not empty requestScope.erroreRegistrazione}">
-            <p style="color: #cc3333; text-align: center; font-weight: bold; margin-bottom: 15px;">
+            <p class="login-errore-globale">
                 ${requestScope.erroreRegistrazione}
             </p>
         </c:if>
@@ -25,33 +25,33 @@
             <div class="form-group">
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome">
-                <span id="errNome" style="color: #cc3333; font-size: 0.85em; display: block; margin-top: 5px;"></span>
+                <span id="errNome" class="login-errore-campo"></span>
             </div>
             
             <div class="form-group">
                 <label for="cognome">Cognome:</label>
                 <input type="text" id="cognome" name="cognome">
-                <span id="errCognome" style="color: #cc3333; font-size: 0.85em; display: block; margin-top: 5px;"></span>
+                <span id="errCognome" class="login-errore-campo"></span>
             </div>
             
             <div class="form-group">
                 <label for="email">Indirizzo Email:</label>
                 <input type="text" id="email" name="email">
-                <span id="errEmail" style="color: #cc3333; font-size: 0.85em; display: block; margin-top: 5px;"></span>
+                <span id="errEmail" class="login-errore-campo"></span>
             </div>
             
             <div class="form-group">
                 <label for="password">Password:</label>
                 <input type="password" id="password" name="password">
-                <span id="errPassword" style="color: #cc3333; font-size: 0.85em; display: block; margin-top: 5px;"></span>
+                <span id="errPassword" class="login-errore-campo"></span>
             </div>
             
-            <button type="submit" class="btn-hero" style="width: 100%; border: none; cursor: pointer; margin-top: 10px;">
+            <button type="submit" class="btn-hero btn-login-submit">
                 Registrati
             </button>
         </form>
         
-        <p style="text-align: center; margin-top: 20px;">
+        <p class="login-footer-text">
             Hai già un account? 
             <a href="${pageContext.request.contextPath}/login" class="btn-link">Accedi qui</a>
         </p>

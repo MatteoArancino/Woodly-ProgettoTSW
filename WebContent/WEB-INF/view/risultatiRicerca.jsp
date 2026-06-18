@@ -23,8 +23,8 @@
                 // Scenario A: Nessun elemento trovato nel DB
                 if (risultati == null || risultati.isEmpty()) {
             %>
-                <div style="text-align: center; width: 100%; padding: 40px 0;">
-                    <p style="font-size: 1.3em; color: #6d4a2a; margin-bottom: 20px;">
+                <div class="ricerca-vuota-box">
+                    <p class="ricerca-vuota-messaggio">
                         Spiacenti, nessun mobile corrisponde ai criteri cercati.
                     </p>
                     <a href="catalogo" class="btn-hero">Esplora l'intero Catalogo</a>
@@ -35,9 +35,12 @@
                     for (Prodotto p : risultati) {
             %>
                     <div class="product-card-home">
-                        <img src="${pageContext.request.contextPath}/<%= (p.getImmagineUrl() != null && !p.getImmagineUrl().isEmpty()) ? p.getImmagineUrl() : "images/default.png" %>" onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/images/default.png';" alt="<%= p.getNome() %>" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 10px;">
+                        <img src="${pageContext.request.contextPath}/<%= (p.getImmagineUrl() != null && !p.getImmagineUrl().isEmpty()) ? p.getImmagineUrl() : "images/default.png" %>" 
+                             onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/images/default.png';" 
+                             alt="<%= p.getNome() %>">
+                             
                         <h3><%= p.getNome() %></h3>
-                        <p style="font-size: 0.9em; color: #6d4a2a; margin-bottom: 12px; min-height: 40px;">
+                        <p class="ricerca-prod-descrizione">
                             <%= p.getDescription() %>
                         </p>
                         <p class="price"><%= String.format("%.2f", p.getPrezzo()) %> €</p>

@@ -35,17 +35,24 @@
                     <c:otherwise>
                         <c:forEach var="p" items="${requestScope.prodotti}">
                             <div class="product-card-home">
-                               <img src="${pageContext.request.contextPath}/${not empty p.immagineUrl ? p.immagineUrl : 'images/default.png'}" onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/images/default.png';" alt="${p.nome}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 10px;"><h3>${p.nome}</h3>
+                               
+                               <img src="${pageContext.request.contextPath}/${not empty p.immagineUrl ? p.immagineUrl : 'images/default.png'}" 
+                                    onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/images/default.png';" 
+                                    alt="${p.nome}" 
+                                    class="img-catalogo">
+                                    
+                               <h3>${p.nome}</h3>
                                <p class="prod-descrizione">${p.description}</p>
-                                <p class="price">${p.prezzo} €</p>
+                               <p class="price">${p.prezzo} €</p>
                                 
                                 <%-- Form per l'aggiunta sicura in POST alla Servlet dedicata del carrello --%>
                                 <form action="${pageContext.request.contextPath}/AggiungiAlCarrello" method="POST">
                                     <input type="hidden" name="id" value="${p.id}">
-                                    <button type="submit" class="btn-add-cart" style="border:none; cursor:pointer; width:100%;">
+                                    <button type="submit" class="btn-add-cart btn-add-cart-full">
                                         Aggiungi al carrello
                                     </button>
                                 </form>
+                                
                             </div>
                         </c:forEach>
                     </c:otherwise>

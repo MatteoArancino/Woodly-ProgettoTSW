@@ -12,37 +12,34 @@
 
     <jsp:include page="/WEB-INF/view/header.jsp" />
 
-    <main class="carrello-premium-container" style="max-width: 600px; margin: 40px auto; padding: 20px;">
-        <h2 class="titolo-premium" style="text-align: center; margin-bottom: 30px;">Dettagli di Spedizione</h2>
+    <main class="carrello-premium-container checkout-main-box">
+        <h2 class="titolo-premium checkout-titolo">Dettagli di Spedizione</h2>
         
         <c:if test="${not empty erroreCheckout}">
-            <p style="color: #a94442; background: #f2dede; padding: 10px; border-radius: 4px; text-align: center;">${erroreCheckout}</p>
+            <p class="checkout-errore-messaggio">${erroreCheckout}</p>
         </c:if>
 
-        <form action="${pageContext.request.contextPath}/checkout" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
+        <form action="${pageContext.request.contextPath}/checkout" method="POST" class="checkout-form">
             
-            <div style="display: flex; flex-direction: column;">
-                <label style="font-weight: 600; margin-bottom: 5px; color: #333;">Indirizzo di Spedizione</label>
-                <input type="text" name="indirizzo" placeholder="Via/Piazza e Numero Civico" required 
-                       style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit;">
+            <div class="checkout-form-group">
+                <label class="checkout-label">Indirizzo di Spedizione</label>
+                <input type="text" name="indirizzo" placeholder="Via/Piazza e Numero Civico" required class="checkout-input">
             </div>
 
-            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 15px;">
-                <div style="display: flex; flex-direction: column;">
-                    <label style="font-weight: 600; margin-bottom: 5px; color: #333;">Città</label>
-                    <input type="text" name="citta" placeholder="Milano, Roma..." required 
-                           style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit;">
+            <div class="checkout-grid-row">
+                <div class="checkout-form-group">
+                    <label class="checkout-label">Città</label>
+                    <input type="text" name="citta" placeholder="Milano, Roma..." required class="checkout-input">
                 </div>
-                <div style="display: flex; flex-direction: column;">
-                    <label style="font-weight: 600; margin-bottom: 5px; color: #333;">CAP</label>
-                    <input type="text" name="cap" placeholder="20100" pattern="[0-9]{5}" required 
-                           style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit;">
+                <div class="checkout-form-group">
+                    <label class="checkout-label">CAP</label>
+                    <input type="text" name="cap" placeholder="20100" pattern="[0-9]{5}" required class="checkout-input">
                 </div>
             </div>
 
-            <div style="display: flex; flex-direction: column; margin-top: 10px;">
-                <label style="font-weight: 600; margin-bottom: 8px; color: #333;">Metodo di Pagamento</label>
-                <select name="metodoPagamento" required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: inherit; background: white;">
+            <div class="checkout-form-group checkout-select-space">
+                <label class="checkout-label">Metodo di Pagamento</label>
+                <select name="metodoPagamento" required class="checkout-input checkout-select">
                     <option value="Carta di Credito / Debito">Carta di Credito / Debito</option>
                     <option value="PayPal">PayPal</option>
                     <option value="Bonifico Bancario">Bonifico Bancario anticipato</option>
@@ -50,9 +47,9 @@
                 </select>
             </div>
 
-            <hr class="divider-elegante" style="margin: 20px 0;">
+            <hr class="divider-elegante checkout-divider">
 
-            <button type="submit" class="btn-procedi-checkout-bello" style="width: 100%; border: none; cursor: pointer; padding: 15px; font-size: 16px;">
+            <button type="submit" class="btn-procedi-checkout-bello btn-checkout-submit">
                 Conferma e Invia Ordine
             </button>
         </form>

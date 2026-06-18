@@ -8,52 +8,52 @@
     <title>Woodly - Monitoraggio Ordini</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/style.css">
 </head>
-<body style="background: #f4f5f7;">
+<body class="admin-body">
 
     <jsp:include page="/WEB-INF/view/header.jsp" />
 
-    <main style="max-width: 1000px; margin: 40px auto; padding: 0 20px;">
-        <h2 style="font-family: 'Playfair Display', serif;">📜 Registro Vendite Complessivo</h2>
+    <main class="admin-container">
+        <h2 class="admin-title">📜 Registro Vendite Complessivo</h2>
         
-        <form action="${pageContext.request.contextPath}/admin/ordini" method="GET" style="background: white; padding: 20px; border-radius: 6px; border:1px solid #ddd; display: flex; gap:15px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 25px;">
+        <form action="${pageContext.request.contextPath}/admin/ordini" method="GET" class="admin-filter-form">
             <div>
-                <label style="font-size:12px; font-weight:bold; display:block; margin-bottom:5px;">Da Data (X):</label>
-                <input type="date" name="dataInizio" value="${param.dataInizio}" style="padding:6px; border:1px solid #ccc; border-radius:4px;">
+                <label class="admin-filter-label">Da Data (X):</label>
+                <input type="date" name="dataInizio" value="${param.dataInizio}" class="admin-filter-input">
             </div>
             <div>
-                <label style="font-size:12px; font-weight:bold; display:block; margin-bottom:5px;">A Data (Y):</label>
-                <input type="date" name="dataFine" value="${param.dataFine}" style="padding:6px; border:1px solid #ccc; border-radius:4px;">
+                <label class="admin-filter-label">A Data (Y):</label>
+                <input type="date" name="dataFine" value="${param.dataFine}" class="admin-filter-input">
             </div>
             <div>
-                <label style="font-size:12px; font-weight:bold; display:block; margin-bottom:5px;">ID Cliente (Numerico):</label>
-                <input type="number" name="idCliente" value="${param.idCliente}" placeholder="Es: 1" style="padding:6px; border:1px solid #ccc; border-radius:4px; width:120px;">
+                <label class="admin-filter-label">ID Cliente (Numerico):</label>
+                <input type="number" name="idCliente" value="${param.idCliente}" placeholder="Es: 1" class="admin-filter-input input-small">
             </div>
-            <button type="submit" style="background:#333; color:white; padding:8px 15px; border:none; border-radius:4px; font-weight:600; cursor:pointer;">Filtra Ordini</button>
-            <a href="${pageContext.request.contextPath}/admin/ordini" style="font-size:13px; color:#007bff; text-decoration:none; padding-bottom:8px;">Resetta</a>
+            <button type="submit" class="btn-admin-filter">Filtra Ordini</button>
+            <a href="${pageContext.request.contextPath}/admin/ordini" class="admin-filter-reset">Resetta</a>
         </form>
 
-        <div style="background: white; padding: 25px; border-radius: 8px; border: 1px solid #ddd;">
-            <table style="width:100%; border-collapse:collapse; text-align:left; font-size:14px;">
+        <div class="admin-table-panel">
+            <table class="admin-table">
                 <thead>
-                    <tr style="background:#f8f9fa; border-bottom:2px solid #dee2e6; color:#555;">
-                        <th style="padding:10px;">Num Ordine</th>
-                        <th style="padding:10px;">Data/Ora Transazione</th>
-                        <th style="padding:10px;">Cliente (Account)</th>
-                        <th style="padding:10px;">Destinazione Consegna</th>
-                        <th style="padding:10px; text-align:right;">Totale</th>
-                        <th style="padding:10px; text-align:center;">Stato</th>
+                    <tr>
+                        <th>Num Ordine</th>
+                        <th>Data/Ora Transazione</th>
+                        <th>Cliente (Account)</th>
+                        <th>Destinazione Consegna</th>
+                        <th class="text-right">Totale</th>
+                        <th class="text-center">Stato</th>
                     </tr>
                 </thead>
                 <tbody>
                     <c:forEach var="ord" items="${ordini}">
-                        <tr style="border-bottom:1px solid #eee;">
-                            <td style="padding:10px; font-weight:bold;">#WDLY-${ord.id}</td>
-                            <td style="padding:10px;"><fmt:formatDate value="${ord.dataOrdine}" pattern="dd/MM/yyyy HH:mm" /></td>
-                            <td style="padding:10px; color:#555;">${ord.cap} (ID: ${ord.idUtente})</td>
-                            <td style="padding:10px; font-size:13px;">${ord.indirizzo}</td>
-                            <td style="padding:10px; text-align:right; font-weight:bold;">${ord.totale} €</td>
-                            <td style="padding:10px; text-align:center;">
-                                <span style="padding:3px 8px; border-radius:12px; font-size:11px; font-weight:bold; background:#fff3cd; color:#856404;">
+                        <tr>
+                            <td class="text-bold">#WDLY-${ord.id}</td>
+                            <td><fmt:formatDate value="${ord.dataOrdine}" pattern="dd/MM/yyyy HH:mm" /></td>
+                            <td class="text-muted">${ord.cap} (ID: ${ord.idUtente})</td>
+                            <td class="text-small">${ord.indirizzo}</td>
+                            <td class="text-right text-bold">${ord.totale} €</td>
+                            <td class="text-center">
+                                <span class="admin-status-badge">
                                     ${ord.stato}
                                 </span>
                             </td>
@@ -61,7 +61,7 @@
                     </c:forEach>
                     <c:if test="${empty ordini}">
                         <tr>
-                            <td colspan="6" style="padding:20px; text-align:center; color:#999;">Nessun ordine trovato per i parametri di ricerca inseriti.</td>
+                            <td colspan="6" class="admin-table-empty">Nessun ordine trovato per i parametri di ricerca inseriti.</td>
                         </tr>
                     </c:if>
                 </tbody>

@@ -13,69 +13,67 @@
 
     <jsp:include page="/WEB-INF/view/header.jsp" />
 
-    <main class="carrello-premium-container" style="max-width: 900px; margin: 40px auto; padding: 0 20px;">
+    <main class="carrello-premium-container area-personale-main">
         
-        <div style="background: #fdfbf7; border: 1px solid #e6dfd3; padding: 25px; border-radius: 8px; margin-bottom: 40px; display: flex; justify-content: space-between; align-items: center;">
+        <div class="user-welcome-box">
             <div>
-                <h2 class="titolo-premium" style="margin: 0 0 10px 0; font-size: 28px;">Benvenuto, ${utenteLoggato.nome} ${utenteLoggato.cognome}</h2>
-                <p style="margin: 0; color: #666; font-size: 14px;">Account collegato: <strong>${utenteLoggato.email}</strong></p>
+                <h2 class="titolo-premium welcome-title">Benvenuto, ${utenteLoggato.nome} ${utenteLoggato.cognome}</h2>
+                <p class="user-account-info">Account collegato: <strong>${utenteLoggato.email}</strong></p>
             </div>
             <div>
-                <a href="${pageContext.request.contextPath}/logout" style="background: #a94442; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; font-weight: 600; font-size: 14px; transition: background 0.2s;">
+                <a href="${pageContext.request.contextPath}/logout" class="btn-logout">
                     Disconnetti (Logout)
                 </a>
             </div>
         </div>
 
-        <h3 class="titolo-premium" style="font-size: 22px; margin-bottom: 20px; border-bottom: 2px solid #333; padding-bottom: 10px;">Il tuo Storico Acquisti</h3>
+        <h3 class="titolo-premium storico-ordini-title">Il tuo Storico Acquisti</h3>
 
         <c:if test="${empty storicoOrdini}">
-            <div class="vuoto-premium-box" style="padding: 40px 20px; text-align: center; border: 1px dashed #ccc; border-radius: 6px;">
-                <p style="color: #666; font-size: 16px;">Non hai ancora effettuato ordini su Woodly.</p>
-                <a href="${pageContext.request.contextPath}/catalogo" class="btn-hero" style="display: inline-block; margin-top: 10px; padding: 10px 20px;">Esplora il Catalogo</a>
+            <div class="vuoto-premium-box ordine-vuoto-container">
+                <p class="ordine-vuoto-testo">Non hai ancora effettuato ordini su Woodly.</p>
+                <a href="${pageContext.request.contextPath}/catalogo" class="btn-hero btn-esplora-catalogo">Esplora il Catalogo</a>
             </div>
         </c:if>
 
         <c:if test="${not empty storicoOrdini}">
-            <div style="display: flex; flex-direction: column; gap: 25px; margin-bottom: 5px;">
+            <div class="storico-ordini-list">
                 <c:forEach var="ordine" items="${storicoOrdini}">
                     
-                    <div style="border: 1px solid #ddd; border-radius: 6px; overflow: hidden; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.02);">
+                    <div class="ordine-card">
                         
-                        <div style="background: #f5f5f5; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; flex-wrap: wrap; gap: 10px;">
+                        <div class="ordine-card-header">
                             <div>
-                                <span style="font-size: 12px; color: #777; display: block; text-transform: uppercase;">Ordine effettuato il</span>
-                                <strong style="color: #333;"><fmt:formatDate value="${ordine.dataOrdine}" pattern="dd MMMM yyyy - HH:mm" /></strong>
+                                <span class="ordine-meta-label">Ordine effettuato il</span>
+                                <strong class="ordine-meta-value"><fmt:formatDate value="${ordine.dataOrdine}" pattern="dd MMMM yyyy - HH:mm" /></strong>
                             </div>
-                            <div>
-                                <span style="font-size: 12px; color: #777; display: block; text-transform: uppercase; text-align: right;">ID Spedizione</span>
-                                <strong style="color: #333;">#WDLY-${ordine.id}</strong>
+                            <div style="text-align: right;">
+                                <span class="ordine-meta-label">ID Spedizione</span>
+                                <strong class="ordine-meta-value">#WDLY-${ordine.id}</strong>
                             </div>
-                            <div>
-                                <span style="font-size: 12px; color: #777; display: block; text-transform: uppercase; text-align: right;">Stato</span>
-                                <span style="display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; 
-                                             background: ${ordine.stato == 'Consegnato' ? '#d4edda' : (ordine.stato == 'Annullato' ? '#f8d7da' : '#fff3cd')}; 
-                                             color: ${ordine.stato == 'Consegnato' ? '#155724' : (ordine.stato == 'Annullato' ? '#721c24' : '#856404')};">
+                            <div style="text-align: right;">
+                                <span class="ordine-meta-label">Stato</span>
+                                <span class="ordine-stato-badge ${ordine.stato == 'Consegnato' ? 'stato-consegnato' : (ordine.stato == 'Annullato' ? 'stato-annullato' : 'stato-in-lavorazione')}">
                                     ${ordine.stato}
                                 </span>
                             </div>
                         </div>
 
-                        <div style="padding: 20px;">
-                            <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
+                        <div class="ordine-card-body">
+                            <table class="ordine-table">
                                 <thead>
-                                    <tr style="border-bottom: 2px solid #eee; color: #555;">
-                                        <th style="padding: 8px 0; font-weight: 600;">Elemento Artigianale</th>
-                                        <th style="padding: 8px 0; font-weight: 600; text-align: center; width: 80px;">Qta</th>
-                                        <th style="padding: 8px 0; font-weight: 600; text-align: right; width: 120px;">Prezzo Unitario</th>
+                                    <tr>
+                                        <th>Elemento Artigianale</th>
+                                        <th class="th-qta">Qta</th>
+                                        <th class="th-prezzo">Prezzo Unitario</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <c:forEach var="dettaglio" items="${ordine.dettagli}">
-                                        <tr style="border-bottom: 1px solid #f9f9f9; color: #333;">
-                                            <td style="padding: 12px 0; font-weight: 500;">${dettaglio.nomeProdotto}</td>
-                                            <td style="padding: 12px 0; text-align: center; color: #666;">x${dettaglio.quantita}</td>
-                                            <td style="padding: 12px 0; text-align: right;">
+                                        <tr>
+                                            <td class="prodotto-nome">${dettaglio.nomeProdotto}</td>
+                                            <td class="prodotto-qta">x${dettaglio.quantita}</td>
+                                            <td class="prodotto-prezzo">
                                                 <fmt:formatNumber value="${dettaglio.prezzoAcquisto}" pattern="#,##0.00" /> €
                                             </td>
                                         </tr>
@@ -83,15 +81,15 @@
                                 </tbody>
                             </table>
                             
-                            <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed #eee; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 15px;">
-                                <div style="font-size: 13px; color: #666;">
-                                    <span style="display:block; font-size: 11px; text-transform: uppercase; color: #999;">Destinazione:</span>
+                            <div class="ordine-card-footer">
+                                <div class="ordine-spedizione-info">
+                                    <span class="destinazione-label">Destinazione:</span>
                                     ${ordine.indirizzo}, ${ordine.citta} (${ordine.cap})<br>
                                     Pagato con: <em>${ordine.metodoPagamento}</em>
                                 </div>
-                                <div style="text-align: right;">
-                                    <span style="font-size: 12px; color: #777; text-transform: uppercase; display: block;">Totale Transazione</span>
-                                    <span style="font-size: 20px; font-weight: bold; color: #333;"><fmt:formatNumber value="${ordine.totale}" pattern="#,##0.00" /> €</span>
+                                <div class="ordine-totale-container">
+                                    <span class="totale-label">Totale Transazione</span>
+                                    <span class="totale-valore"><fmt:formatNumber value="${ordine.totale}" pattern="#,##0.00" /> €</span>
                                 </div>
                             </div>
 

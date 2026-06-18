@@ -40,6 +40,7 @@
                    			<div class="cart-item-card-horizontal">
                                 
                                 <div class="item-img-container">
+                                    <%-- Nota: potremo sostituire questo div con l'immagine dinamica come abbiamo fatto nel catalogo --%>
                                     <div class="img-placeholder-elegante">🪵</div>
                                 </div>
 
@@ -53,26 +54,26 @@
                                     </div>
                                 </div>
 
-	                            	<div class="item-prezzi-quantita">
-								    <div class="item-quantita-display" style="display: flex; align-items: center; gap: 10px;">
-								        <label style="font-size: 14px; color: #555; margin-right: 5px;">Qta:</label>
-								        
-								        <a href="${pageContext.request.contextPath}/AggiornaQuantita?id=${item.prodotto.id}&quantita=${item.quantita - 1}" 
-								           style="display: inline-block; width: 25px; height: 25px; text-align: center; line-height: 23px; border: 1px solid #ccc; border-radius: 4px; text-decoration: none; color: #333; background: #f9f9f9; font-weight: bold;">-</a>
-								        
-								        <span style="font-size: 16px; font-weight: 600; min-width: 20px; text-align: center;">${item.quantita}</span>
-								        
-								        <a href="${pageContext.request.contextPath}/AggiornaQuantita?id=${item.prodotto.id}&quantita=${item.quantita + 1}" 
-								           style="display: inline-block; width: 25px; height: 25px; text-align: center; line-height: 23px; border: 1px solid #ccc; border-radius: 4px; text-decoration: none; color: #333; background: #f9f9f9; font-weight: bold;">+</a>
-								    </div>
-								    
-								    <div class="subtotale-display" style="margin-top: 10px; text-align: right;">
-								        <small style="display:block; color:#888;">subtotale:</small>
-								        <span class="prezzo-finale" style="font-size: 18px; font-weight: bold;">
-								            <fmt:formatNumber value="${item.prodotto.prezzo * item.quantita}" pattern="#,##0.00" /> €
-								        </span>
-								    </div>
-								</div>
+                                <div class="item-prezzi-quantita">
+                                    <div class="item-quantita-display quantita-flex">
+                                        <label class="quantita-label">Qta:</label>
+                                        
+                                        <a href="${pageContext.request.contextPath}/AggiornaQuantita?id=${item.prodotto.id}&quantita=${item.quantita - 1}" 
+                                           class="btn-quantita-modifica">-</a>
+                                        
+                                        <span class="quantita-valore">${item.quantita}</span>
+                                        
+                                        <a href="${pageContext.request.contextPath}/AggiornaQuantita?id=${item.prodotto.id}&quantita=${item.quantita + 1}" 
+                                           class="btn-quantita-modifica">+</a>
+                                    </div>
+                                    
+                                    <div class="subtotale-box">
+                                        <small class="subtotale-label">subtotale:</small>
+                                        <span class="prezzo-finale">
+                                            <fmt:formatNumber value="${item.prodotto.prezzo * item.quantita}" pattern="#,##0.00" /> €
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </c:forEach>
                     </div>
@@ -100,9 +101,8 @@
                             
                             <a href="${pageContext.request.contextPath}/checkout" class="btn-procedi-checkout-bello">Procedi all'Acquisto</a>
                             
-                            <a href="${pageContext.request.contextPath}/SvuotaCarrello" class="btn-svuota-premium" 
-                               style="display: block; text-align: center; margin-top: 15px; color: #a94442; text-decoration: none; font-size: 13px; font-weight: 500; transition: opacity 0.2s;">
-                               🗑️ Svuota Carrello
+                            <a href="${pageContext.request.contextPath}/SvuotaCarrello" class="btn-svuota-premium">
+                                🗑️ Svuota Carrello
                             </a>
                         </div>
                     </aside>

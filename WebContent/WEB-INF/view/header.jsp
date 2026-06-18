@@ -19,16 +19,16 @@
         
         <c:choose>
             <c:when test="${not empty sessionScope.utenteLoggato}">
-                <li style="color: #ffffff; font-weight: 600; display: flex; align-items: center; margin-right: 10px;">
+                <li class="nav-welcome-user">
                     Ciao, ${sessionScope.utenteLoggato.nome}!
                 </li>
                 <li><a href="${pageContext.request.contextPath}/area-personale">👤 Profilo</a></li>
                 
             <c:choose>
-				<c:when test="${sessionScope.ruolo eq 'admin' || sessionScope.ruolo eq 'ADMIN' || sessionScope.utenteLoggato.ruolo eq 'admin' || sessionScope.utenteLoggato.ruolo eq 'ADMIN'}">
-					<li><a href="${pageContext.request.contextPath}/admin/dashboard" style="color: #d9a74a; font-weight: bold;">🛠️ Pannello Admin</a></li>
-				</c:when>
-			</c:choose>
+                <c:when test="${sessionScope.ruolo eq 'admin' || sessionScope.ruolo eq 'ADMIN' || sessionScope.utenteLoggato.ruolo eq 'admin' || sessionScope.utenteLoggato.ruolo eq 'ADMIN'}">
+                    <li><a href="${pageContext.request.contextPath}/admin/dashboard" class="btn-nav-admin">🛠️ Pannello Admin</a></li>
+                </c:when>
+            </c:choose>
 
             </c:when>
             <c:otherwise>
