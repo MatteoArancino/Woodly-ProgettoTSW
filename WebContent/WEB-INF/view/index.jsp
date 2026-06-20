@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %> <%-- Pronto per JSTL qualora volessi renderla dinamica in futuro --%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +18,7 @@
             <a href="${pageContext.request.contextPath}/catalogo" class="btn-hero">Scopri la Collezione</a>
         </div>
     </header>
-
+	
     <section class="trust-bar">
         <div class="trust-item"><span>📦</span> <p><strong>Spedizione Gratuita</strong> sopra i 150€</p></div>
         <div class="trust-item"><span>🇮🇹</span> <p><strong>100% Made in Italy</strong> Legno certificato</p></div>
@@ -64,6 +64,30 @@
         </div>
     </section>
 
+    <section class="custom-furniture-section">
+        <div class="custom-furniture-wrapper">
+            <div class="custom-furniture-icon">🛠️📐</div>
+         
+            <h2 class="custom-furniture-title">
+                Realizziamo i tuoi sogni su misura
+            </h2>
+            
+            <p class="custom-furniture-description">
+                Non trovi le misure adatte al tuo spazio nel nostro catalogo? Nessun problema. 
+                Dicci di cosa hai bisogno (armadi, tavoli, librerie) e i nostri maestri artigiani lo costruiranno per te, nel legno che preferisci.
+            </p>
+            
+            <a href="${pageContext.request.contextPath}/invia-richiesta" class="cta-preventivo-btn">
+                Richiedi un Preventivo Gratuito
+            </a>
+            
+            <p class="custom-furniture-note">
+                * Risposta garantita entro 24/48 ore lavorative.
+            </p>
+            
+        </div>
+    </section>
+	
     <jsp:include page="/WEB-INF/view/footer.jsp" />
 
 </body>

@@ -16,7 +16,7 @@
         <h2 class="admin-title">📐 Gestione Preventivi Su Misura</h2>
         <p class="admin-subtitle">Controlla e rispondi alle richieste di progetti personalizzati inviate dai clienti.</p>
 
-        <div class="admin-table-panel" style="margin-top: 25px;">
+        <div class="admin-table-panel mt-25">
             <table class="admin-table">
                 <thead>
                     <tr>
@@ -55,37 +55,37 @@
                                         <fmt:formatNumber value="${req.prezzoProposto}" type="currency" currencySymbol="€"/>
                                     </c:when>
                                     <c:otherwise>
-                                        <span class="text-muted" style="font-weight: normal;">-</span>
+                                        <span class="text-muted fw-normal">-</span>
                                     </c:otherwise>
                                 </c:choose>
                             </td>
                             
-                            <td class="text-center" style="white-space: nowrap;">
+                            <td class="text-center col-stato">
                                 <c:choose>
                                     <c:when test="${req.stato == 'In attesa'}">
-                                        <span class="admin-status-badge badge-warning" style="background-color: #f0ad4e; color: white; padding: 3px 8px; border-radius: 4px; white-space: nowrap;">In attesa</span>
+                                        <span class="admin-status-badge badge-warning">In attesa</span>
                                     </c:when>
                                     <c:when test="${req.stato == 'Preventivo inviato'}">
-                                        <span class="admin-status-badge badge-info" style="background-color: #5bc0de; color: white; padding: 3px 8px; border-radius: 4px; white-space: nowrap;">Inviato</span>
+                                        <span class="admin-status-badge badge-info">Inviato</span>
                                     </c:when>
                                     <c:when test="${req.stato == 'Accettato'}">
-                                        <span class="admin-status-badge badge-success" style="background-color: #5cb85c; color: white; padding: 3px 8px; border-radius: 4px; white-space: nowrap;">Accettato</span>
+                                        <span class="admin-status-badge badge-success">Accettato</span>
                                     </c:when>
                                     <c:otherwise>
-                                        <span class="admin-status-badge" style="background-color: #d9534f; color: white; padding: 3px 8px; border-radius: 4px; white-space: nowrap;">${req.stato}</span>
+                                        <span class="admin-status-badge badge-danger">${req.stato}</span>
                                     </c:otherwise>
                                 </c:choose>
                             </td>
                             
                             <td class="text-center">
-                                <a href="${pageContext.request.contextPath}/admin/dettaglio-richiesta?id=${req.id}" class="btn-admin-edit" style="background-color: #337ab7; color: white; padding: 5px 10px; border-radius: 4px; text-decoration: none; display: inline-block;">Gestisci</a>
+                                <a href="${pageContext.request.contextPath}/admin/dettaglio-richiesta?id=${req.id}" class="btn-admin-edit">Gestisci</a>
                             </td>
                         </tr>
                     </c:forEach>
                     
                     <c:if test="${empty richieste}">
                         <tr>
-                            <td colspan="9" class="admin-table-empty" style="text-align: center; padding: 20px; color: #999;">Nessuna richiesta di preventivo ricevuta al momento.</td>
+                            <td colspan="9" class="admin-table-empty">Nessuna richiesta di preventivo ricevuta al momento.</td>
                         </tr>
                     </c:if>
                 </tbody>

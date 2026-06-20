@@ -1664,3 +1664,267 @@ textarea.admin-form-input {
 .text-bold { font-weight: bold; }
 .text-muted { color: #555; }
 .text-small { font-size: 13px; }
+
+/* =========================================
+   SEZIONE PREVENTIVI SU MISURA
+   ========================================= */
+.form-container { 
+    max-width: 700px; 
+    margin: 60px auto; 
+    background: #ffffff;
+    padding: 50px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(74, 55, 40, 0.05);
+    border: 1px solid #eae0d5;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Intestazione  */
+.form-container h2 {
+    color: #4a3728;
+    font-size: 32px;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.form-description {
+    text-align: center;
+    color: #6a513d;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+/* Griglia a due colonne per i primi due campi */
+.form-grid-top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Gruppi del Form e Label */
+.form-group { margin-bottom: 24px; }
+
+.form-group label { 
+    display: block; 
+    font-weight: 600; 
+    margin-bottom: 8px; 
+    color: #4a3728;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+
+.form-control { 
+    width: 100%; 
+    padding: 14px 16px; 
+    border: 1px solid #dcd1c4; 
+    border-radius: 6px; 
+    box-sizing: border-box; 
+    font-size: 15px;
+    color: #4a3728;
+    background-color: #fff;
+    transition: all 0.25s ease;
+}
+
+
+.form-control:focus { 
+    border-color: #8B5A2B; 
+    outline: none; 
+    box-shadow: 0 0 0 4px rgba(139, 90, 43, 0.12);
+    background-color: #fff;
+}
+
+/* Layout Misure */
+.misure-grid { 
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px; 
+}
+
+.misure-input-wrapper {
+    position: relative;
+}
+
+.misure-input-wrapper::after {
+    content: "cm";
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a38f7d;
+    font-size: 13px;
+    font-weight: 500;
+    pointer-events: none;
+}
+
+.misure-grid .form-control {
+    padding-right: 40px;
+}
+
+/* Il Bottone d'impatto Woodly */
+.btn-submit { 
+    background-color: #8B5A2B; 
+    color: white; 
+    padding: 16px 20px; 
+    border: none; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    font-size: 15px; 
+    font-weight: 700;
+    width: 100%; 
+    box-shadow: 0 4px 12px rgba(139, 90, 43, 0.15);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.25s ease;
+    margin-top: 15px;
+}
+
+.btn-submit:hover { 
+    background-color: #6f451f; 
+    box-shadow: 0 6px 20px rgba(139, 90, 43, 0.25);
+    transform: translateY(-1px);
+}
+
+.btn-submit:active {
+    transform: translateY(1px);
+}
+
+/* =========================================
+   SEZIONE HOME: PREVENTIVI SU MISURA
+   ========================================= */
+.custom-furniture-section {
+    background-color: #ffffff; 
+    padding: 80px 20px; 
+    text-align: center; 
+    margin: 0;
+}
+
+.custom-furniture-wrapper {
+    max-width: 800px; 
+    margin: 0 auto;
+}
+
+.custom-furniture-icon {
+    font-size: 40px; 
+    margin-bottom: 15px;
+}
+
+.custom-furniture-title {
+    color: #4a3728; 
+    font-size: 32px; 
+    margin-top: 0; 
+    margin-bottom: 15px; 
+    font-weight: bold;
+}
+
+.custom-furniture-description {
+    color: #6a513d; 
+    font-size: 18px; 
+    line-height: 1.6; 
+    margin-bottom: 30px; 
+    max-width: 650px; 
+    margin-left: auto; 
+    margin-right: auto;
+}
+
+.cta-preventivo-btn {
+    background-color: #8B5A2B; 
+    color: white; 
+    padding: 14px 35px; 
+    border-radius: 5px; 
+    text-decoration: none; 
+    display: inline-block; 
+    font-weight: bold; 
+    font-size: 16px; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.cta-preventivo-btn:hover {
+    background-color: #6f451f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.custom-furniture-note {
+    color: #9c8470; 
+    font-size: 13px; 
+    margin-top: 15px; 
+    margin-bottom: 0;
+}
+
+/* =========================================
+   SEZIONE ADMIN: GESTIONE RICHIESTE
+   ========================================= */
+/* Spaziatura extra per la tabella */
+.admin-table-panel.mt-25 {
+    margin-top: 25px;
+}
+
+/* Stili di testo per la tabella */
+.text-small {
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.text-muted {
+    color: #777;
+}
+
+.fw-normal {
+    font-weight: normal;
+}
+
+.col-stato {
+    white-space: nowrap;
+}
+
+/* Etichette di Stato (Badges) */
+.admin-status-badge {
+    color: white; 
+    padding: 4px 10px; 
+    border-radius: 5px; 
+    white-space: nowrap;
+    font-size: 13px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.badge-warning { background-color: #f0ad4e; }
+.badge-info    { background-color: #5bc0de; }
+.badge-success { background-color: #5cb85c; }
+.badge-danger  { background-color: #d9534f; }
+
+/* Pulsante Azione / Gestisci */
+.btn-admin-edit {
+    background-color: #337ab7; 
+    color: white; 
+    padding: 6px 14px; 
+    border-radius: 5px; 
+    text-decoration: none; 
+    display: inline-block;
+    font-size: 13px;
+    font-weight: bold;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn-admin-edit:hover {
+    background-color: #286090;
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* Stato vuoto tabella */
+.admin-table-empty {
+    text-align: center; 
+    padding: 40px; 
+    color: #999;
+    font-style: italic;
+    font-size: 15px;
+}
