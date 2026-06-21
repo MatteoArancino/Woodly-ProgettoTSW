@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Woodly - Preventivi Su Misura</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/style.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/styles/style.css?v=4">
 </head>
 <body class="admin-body">
 
@@ -46,7 +47,16 @@
                             
                             <td class="text-small">
                                 📐 ${req.larghezzaCm}x${req.altezzaCm}x${req.profonditaCm} cm<br>
-                                <span class="text-muted">${req.noteCliente}</span>
+                                <span class="text-muted">
+                                    <c:choose>
+                                        <c:when test="${fn:length(req.noteCliente) > 40}">
+                                            ${fn:substring(req.noteCliente, 0, 40)}...
+                                        </c:when>
+                                        <c:otherwise>
+                                            ${req.noteCliente}
+                                        </c:otherwise>
+                                    </c:choose>
+                                </span>
                             </td>
                             
                             <td class="text-bold">

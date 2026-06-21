@@ -17,7 +17,8 @@ public class RichiestaSuMisura {
     private Timestamp dataRichiesta;
     private String nomeUtente;
     private String cognomeUtente;
-  
+    private String emailUtente;
+    
     public RichiestaSuMisura() {
     }
 
@@ -124,5 +125,13 @@ public class RichiestaSuMisura {
 
     public void setCognomeUtente(String cognomeUtente) {
         this.cognomeUtente = cognomeUtente;
+    }
+    
+    public String getEmailUtente() {
+        return emailUtente;
+    }
+
+    public void setEmailUtente(String emailUtente) {
+        this.emailUtente = emailUtente;
     }
 }
