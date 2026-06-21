@@ -40,9 +40,11 @@
                    			<div class="cart-item-card-horizontal">
                                 
                                 <div class="item-img-container">
-                                    <%-- Nota: potremo sostituire questo div con l'immagine dinamica come abbiamo fatto nel catalogo --%>
-                                    <div class="img-placeholder-elegante">🪵</div>
-                                </div>
+								    <img src="${pageContext.request.contextPath}/${not empty item.prodotto.immagineUrl ? item.prodotto.immagineUrl : 'images/default.png'}" 
+								         onerror="this.onerror=null; this.src='${pageContext.request.contextPath}/images/default.png';" 
+								         alt="${item.prodotto.nome}" 
+								         class="img-carrello-dinamica">
+								</div>
 
                                 <div class="item-dettagli">
                                     <div class="dettagli-sopra">

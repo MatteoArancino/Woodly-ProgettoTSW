@@ -13,6 +13,12 @@
         </form>
     </div>
 
+    <button class="hamburger-menu" id="hamburger-btn" aria-label="Apri menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
     <ul class="nav-links">
         <li><a href="${pageContext.request.contextPath}/home">Home</a></li>
         <li><a href="${pageContext.request.contextPath}/catalogo">Catalogo</a></li>
@@ -46,3 +52,5 @@
         </li>
     </ul>
 </nav>
+
+<script src="${pageContext.request.contextPath}/scripts/navbar.js"></script>

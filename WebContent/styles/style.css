@@ -2050,3 +2050,410 @@ textarea.admin-form-input {
 .btn-submit-price:hover {
     background-color: #4cae4c;
 }
+
+/* ==========================================================================
+   MEDIA QUERIES PER RESPONSIVITÀ
+   ========================================================================== */
+
+/* --- Per Smartphone piccoli (max-width: 480px) --- */
+@media (max-width: 480px) {
+    .section-home {
+        padding: 40px 15px;
+    }
+
+    .section-title {
+        font-size: 1.8em;
+    }
+
+    .category-card, .product-card-home {
+        width: 100%; /* Sfrutta tutta la larghezza dello schermo del telefono */
+    }
+
+    .misure-grid {
+        grid-template-columns: 1fr; /* Le misure passano una sotto l'altra */
+    }
+
+    .form-container {
+        padding: 20px;
+        margin: 30px auto;
+    }
+    
+    .riepilogo-card-premium {
+        padding: 20px;
+    }
+
+    .prezzo-totale-bello {
+        font-size: 1.8em;
+    }
+}
+
+/* ==========================================================================
+   AGGIUNTA RESPONSIVE: HAMBURGER MENU (PER MOBILE)
+   ========================================================================== */
+
+/* Stile di base del pulsante hamburger (nascosto su Desktop) */
+.hamburger-menu {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.hamburger-menu span {
+    width: 100%;
+    height: 3px;
+    background-color: #fcf9f5; /* Colore panna come il logo */
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* --- MEDIA QUERY PER DISPOSITIVI MOBILI (Sotto i 768px) --- */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px; /* Riduciamo il padding sui lati */
+        position: relative;
+    }
+
+    /* Mostriamo il pulsante hamburger */
+    .hamburger-menu {
+        display: flex;
+    }
+
+    /* Trasformiamo la lista dei link in un menu a tendina verticale */
+    .navbar .nav-links {
+        display: none; 
+        flex-direction: column;
+        align-items: flex-start;
+        position: absolute;
+        top: 100%; 
+        left: 0;
+        width: 100%;
+        background-color: #2e1f15; 
+        padding: 25px;
+        gap: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        z-index: 1000;
+    }
+
+    nav.navbar ul.nav-links.active {
+        display: flex; 
+    }
+
+    /* Aggiustamento larghezza ricerca per non stringere troppo su mobile */
+    .search-container input {
+        width: 160px;
+    }
+    
+    /* Animazione opzionale per trasformare l'hamburger in una "X" quando è aperto */
+    .hamburger-menu.open span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+    .hamburger-menu.open span:nth-child(2) {
+        opacity: 0;
+    }
+    .hamburger-menu.open span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+    
+    /* ==========================================================================
+   VISUALE A LISTA (STILE AMAZON) PER SMARTPHONE (Sotto i 768px)
+   ========================================================================== */
+    /* Mette i prodotti uno sotto l'altro senza affiancarli */
+    .products-grid-home, 
+    .griglia-catalogo-container .products-grid-home {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 0 10px;
+    }
+
+    /* Trasforma la card da verticale a orizzontale */
+    .product-card-home {
+        width: 100%;
+        max-width: 100%; /* Prende tutta la larghezza dello schermo mobile */
+        display: grid;
+        grid-template-columns: 120px 1fr; /* 120px per l'immagine, il resto per le info */
+        grid-template-rows: auto auto auto 1fr; /* Righe per titolo, descr, prezzo, bottone */
+        gap: 5px 15px;
+        padding: 12px;
+        text-align: left;
+    }
+
+    /* Blocchiamo l'immagine a sinistra (spalmata su tutte le righe) */
+    .product-card-home img {
+        grid-column: 1;
+        grid-row: 1 / 6; /* Copre tutte le righe virtuali */
+        width: 100%;
+        height: 120px; /* Immagine più compatta e quadrata */
+        margin-bottom: 0;
+        border-radius: 6px;
+    }
+
+    /* Titolo a destra */
+    .product-card-home h3 {
+        grid-column: 2;
+        margin-bottom: 0;
+        font-size: 1.05em;
+        line-height: 1.2;
+    }
+
+    /* Descrizione a destra (se presente) */
+    .prod-descrizione {
+        grid-column: 2;
+        margin-bottom: 0;
+        font-size: 0.85em;
+        min-height: auto;
+    }
+
+    /* Prezzo a destra */
+    .product-card-home .price {
+        grid-column: 2;
+        margin-bottom: 0;
+        font-size: 1.15em;
+    }
+
+    /* Bottone a destra, spinto in basso */
+    .btn-add-cart, .btn-add-cart-full {
+        grid-column: 2;
+        align-self: end; /* Allinea il bottone in basso */
+        margin-top: 5px;
+        padding: 8px;
+        font-size: 0.9em;
+        text-align: center;
+    }
+
+    /* Aggiustamento Badge "Promo" se presente (per non sbordare dall'immagine) */
+    .badge-promo {
+        top: 5px;
+        left: 5px;
+        font-size: 0.65em;
+        padding: 3px 6px;
+    }
+    
+/* ==========================================================================
+   VISUALE A LISTA CARRELLO (STILE AMAZON) PER SMARTPHONE
+   ========================================================================== */
+    /* Mette il riepilogo sotto i prodotti*/
+    .layout-split-moderno {
+        display: flex;
+        flex-direction: column; 
+        gap: 25px;
+    }
+
+    .elenco-prodotti-moderno, 
+    .sidebar-riepilogo-moderna {
+        min-width: 100%;
+        width: 100%;
+    }
+
+    .carrello-premium-container .elenco-prodotti-moderno .cart-item-card-horizontal {
+        display: grid;
+        grid-template-columns: 90px 1fr; 
+        gap: 10px 15px;
+        padding: 15px; /* Leggermente aumentato per far respirare la card */
+        
+        /* Modifiche per l'effetto Card */
+        background-color: #ffffff; /* Sfondo bianco */
+        border: 1px solid #e0e0e0; /* Bordo su tutti i lati */
+        border-radius: 8px; /* Angoli arrotondati */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Ombra leggerissima */
+        margin-bottom: 15px; /* Spazio tra una card e l'altra */
+        
+        align-items: start;
+        text-align: left; 
+    }
+
+    /* Immagine nella prima colonna a sinistra */
+    .carrello-premium-container .elenco-prodotti-moderno .item-img-container {
+        grid-column: 1;
+        grid-row: 1 / 4; 
+        width: 100%;
+        height: 90px;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .img-placeholder-elegante {
+        width: 100%;
+        height: 100%;
+        font-size: 2.5em; 
+    }
+
+    /* Testi bloccati a sinistra */
+    .carrello-premium-container .elenco-prodotti-moderno .item-dettagli {
+        grid-column: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; 
+        gap: 3px;
+    }
+
+    .carrello-premium-container .elenco-prodotti-moderno .dettagli-sopra h4 {
+        font-size: 1.05em;
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    .carrello-premium-container .elenco-prodotti-moderno .item-categoria {
+        font-size: 0.8em;
+        color: #777;
+    }
+
+    /* Sezione pulsanti e totale */
+    .carrello-premium-container .elenco-prodotti-moderno .item-prezzi-quantita {
+        grid-column: 2;
+        display: flex;
+        flex-direction: row; 
+        flex-wrap: wrap; 
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        gap: 8px;
+        margin-top: 12px;
+        padding-top: 12px;
+        border: none;
+        border-top: 1px dashed #e0e0e0; 
+    }
+
+    .carrello-premium-container .elenco-prodotti-moderno .prezzo-finale {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #4a3b32; 
+    }
+
+    .carrello-premium-container .elenco-prodotti-moderno .subtotale-box {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    /* Bottone rimuovi */
+    .carrello-premium-container .elenco-prodotti-moderno .dettagli-sotto {
+        grid-column: 2;
+        margin-top: 5px;
+    }
+
+    .btn-icon-rimuovi {
+        font-size: 0.85em;
+        padding: 4px 8px;
+        background-color: #f1f1f1;
+        border-radius: 4px;
+        text-decoration: none;
+    }
+}
+
+
+/* ==========================================================================
+   OTTIMIZZAZIONE LAYOUT SPECIFICA PER TABLET (Tra 769px e 1024px)
+   ========================================================================== */
+@media (min-width: 769px) and (max-width: 1024px){
+    /* Compattiamo la Navbar per non far accavallare o andare a capo gli elementi */
+    .navbar {
+        padding: 15px 15px;
+    }
+    
+    /* Accorciamo la barra di ricerca */
+    .search-container input {
+        width: 150px; 
+    }
+    
+    /* Avviciniamo i link della navigazione e riduciamo il testo */
+    .nav-links {
+        gap: 12px; 
+        font-size: 0.9em;
+    }
+
+    /* Nascondiamo la scritta "Benvenuto" se presente: ruba spazio vitale! */
+    .nav-welcome-user {
+        display: none; 
+    }
+
+    /* Riduciamo i testi giganti nella Hero Section per proporzionarli */
+    .hero {
+        padding: 80px 20px;
+    }
+    .hero h1 {
+        font-size: 2.4em;
+    }
+
+    /* Pagina Carrello: evitiamo che il riepilogo a destra stritoli i prodotti */
+    .layout-split-moderno {
+        gap: 20px;
+    }
+    .elenco-prodotti-moderno {
+        min-width: 500px; /* Consente alla lista di restringersi senza rompere le card */
+    }
+    .sidebar-riepilogo-moderna {
+        min-width: 280px;
+        width: 300px;
+    }
+    
+    /* Forza l'incolonnamento di prodotti e riepilogo */
+    .carrello-premium-container .layout-split-moderno {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    /* Allarga la lista e il riepilogo a tutto lo schermo (risolve i testi schiacciati) */
+    .carrello-premium-container .elenco-prodotti-moderno, 
+    .carrello-premium-container .sidebar-riepilogo-moderna {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+    }
+
+    /* Assicura che la riga del totale si distenda bene orizzontalmente */
+    .carrello-premium-container .riga-totale-premium {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+    }
+
+    /* Applica la card a lista (Stile Amazon) anche su Tablet */
+    .carrello-premium-container .cart-item-card-horizontal {
+        display: grid;
+        grid-template-columns: 110px 1fr; 
+        gap: 15px 25px;
+        padding: 20px 15px;
+    }
+
+    .carrello-premium-container .item-img-container {
+        grid-column: 1;
+        grid-row: 1 / 4;
+        width: 100%;
+        height: 110px;
+    }
+
+    .carrello-premium-container .item-dettagli {
+        grid-column: 2;
+    }
+
+    /* Su tablet c'è più spazio: teniamo quantità e prezzo distesi sulla stessa riga */
+    .carrello-premium-container .item-prezzi-quantita {
+        grid-column: 2;
+        display: flex;
+        flex-direction: row; 
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px dashed #e0e0e0; /* Linea divisoria */
+    }
+
+    .carrello-premium-container .dettagli-sotto {
+        grid-column: 2;
+        margin-top: 5px;
+    }
+}
