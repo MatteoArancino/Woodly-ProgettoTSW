@@ -115,25 +115,34 @@ body {
    HERO SECTION 
    ========================================================================== */
 .hero {
-    background: linear-gradient(rgba(46, 31, 21, 0.75), rgba(46, 31, 21, 0.75)), url('../images/hero_bg.jpg') center/cover no-repeat;
-    background-color: #6d4a2a; /* Fallback se manca l'immagine */
-    color: white;
-    padding: 120px 20px;
+    /* Un gradiente scuro sovrapposto all'immagine */
+    background-image: linear-gradient(rgba(44, 34, 27, 0.75), rgba(44, 34, 27, 0.75)), 
+                      url('../images/hero-bg.jpg');
+    
+    background-size: cover;        /* Riempie tutto lo spazio senza sformarsi */
+    background-position: center;   /* Centra l'inquadratura della foto */
+    background-repeat: no-repeat;  /* Evita che l'immagine si ripeta */
+    
+    padding: 120px 20px;           /* Diamo respiro verticale ai testi */
     text-align: center;
+    color: #ffffff;                /* Testo rigorosamente bianco per il contrasto */
+    
+    /* Un leggero effetto transizione se decidessi di fare animazioni */
+    transition: background 0.3s ease; 
 }
 
 .hero h1 {
-    color: #fcf9f5;
-    font-size: 3.2em;
-    margin-bottom: 15px;
+    font-size: 3em;
     font-weight: 700;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Ombra sotto le lettere */
 }
 
 .hero p {
-    font-size: 1.25em;
-    max-width: 650px;
-    margin: 0 auto 35px auto;
-    color: #e6dec9;
+    font-size: 1.2em;
+    max-width: 700px;
+    margin: 0 auto 30px auto;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 /* Pulsante principale di Call To Action */
